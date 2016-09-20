@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Bikes Test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<style>
+body{
+    color: black;
+    width:100%; height:100%;
+}
+
+  .select-component {
+    padding: 1em;
+    border-bottom-width: 0;
+    border-right: 0;
+    color: black;
+    display: block;
+    /*margin-left: 1em;*/
+    background: #f7f7f7;
+    position: relative;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -html-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-bottom: 1px solid #d4d4d4;
+    background: linear-gradient(to right,#f6f6f6 0%,#f6f6f6 89%,#e5e5e5 100%);
+}
+
+#options{
+    background-color: #F7F7F7;
+    position: relative;
+    height: 760px !important;}
+
+    .active{
+    }
+    .secondaryOptions{
+        margin-left: 15px;
+        height: 15%;
+    }
+    
+	</style>
+
+</head>
+<body style="">
+	
+	<canvas id="viewport" width="800" height="496" style="float:left; width:55%; "></canvas>
+	<div id="partsList" style=" float:left; width:15%; height:100%">
+    	 
+    <div class="select-component" id="selectComponent_frameset" data-panels="frameset">    <span class="select-component__text">Frame</span></div>
+     <div class="select-component " id="selectComponent_frameset" data-panels="frameset">    <span class="select-component__text">Fork</span></div>
+      <div class="select-component" id="selectComponent_frameset" data-panels="frameset">    <span class="select-component__text">Handlebars</span></div> 
+      <div class="select-component" id="selectComponent_frameset" data-panels="frameset">    <span class="select-component__text">Seat</span></div>
+       <div class="select-component" id="selectComponent_frameset" data-panels="frameset">    <span class="select-component__text">Front Tyre</span></div>
+     <div class="select-component" id="selectComponent_frameset" data-panels="frameset">    <span class="select-component__text">Back Tyre</span></div>
+      <div class="select-component" id="selectComponent_frameset" data-panels="frameset">    <span class="select-component__text">Front Rim</span></div> 
+      <div class="select-component" id="selectComponent_frameset" data-panels="frameset">    <span class="select-component__text">Back Rim</span></div>
+       <div class="select-component" id="selectComponent_frameset" data-panels="frameset">    <span class="select-component__text">Pedals</span></div> 
+      <div class="select-component" id="selectComponent_frameset" data-panels="frameset">    <span class="select-component__text">Chain</span></div>
+
+
+    </div>
+	<div id="options" style="float:left; width:25%;">
+     <div class="secondaryOptions">
+         <h2>Styles</h2>
+
+     </div>  
+     <div class="secondaryOptions">
+         <h2>Materials</h2>
+         <select>
+          <option value="volvo">Volvo</option>
+          <option value="saab">Saab</option>
+          <option value="opel">Opel</option>
+          <option value="audi">Audi</option>
+        </select>
+     </div> 
+     <div class="secondaryOptions">
+         <h2>Colours</h2>
+     </div>    
+    </div>
+</body>
+
+<script>$(".selectComponent").click(function(){
+    $(".selectComponent").addClass("active");
+});</script>
+</html>
