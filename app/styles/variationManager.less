@@ -1,0 +1,125 @@
+@import 'helper.less';
+@import 'global.less';
+@import 'sizes.less';
+
+
+
+body{
+    	background-color: #404040;
+    }
+    	.variationManger{
+             margin-left: 60px;
+    		 color: black;
+		     width:100vw;
+		     height:100vh;
+             position: absolute;
+    	}
+
+      .add-new{
+        cursor: pointer;
+      }
+
+       h1{
+          font-size: @sizeLarge;
+          color: #585858;
+       }
+
+    	.sContainer{
+    		border-style: solid;
+    border-width: 5px;
+    border-color: #404040;
+    background-color: #f4f3f4;
+    width: 20%;
+    height: 80%;
+    float: left;
+    text-align: center;
+
+
+    .active{
+                background-color: #404040;
+                color: #ef501e;
+              }
+
+
+      .speed-list{
+         // height: 100%;
+
+         >select{
+           
+           border: 0;
+           border-radius: 0;
+           background-color: #f4f3f4;
+           width: 100%;
+           text-align: center;
+           font-size: @sizeSmall;
+       
+
+        >option{
+            cursor: pointer;
+            height: 4vh;
+            margin: 0;
+            
+
+
+           &:hover{
+               color: #ef501e;
+              } 
+        }
+       }
+        
+      }
+
+      .parts-list{
+        height: 100%;
+
+         >select{
+        border: 0;
+           border-radius: 0;
+           background-color: #f4f3f4;
+           width: 100%;
+           text-align: center;
+          display: none;
+
+        >option{
+            cursor: pointer;
+            height: 50px;
+            margin: 0;
+            line-height: 50px;
+            font-size: @sizeSmall;
+
+
+           &:hover{
+               color: #ef501e;
+              } 
+        }
+       }
+      }
+ 
+    }
+    .lContainer{
+    		border-style: solid;
+    border-width: 5px;
+     border-color: #404040;
+    background-color: #f4f3f4;
+    width: 50%;
+    height: 80%;
+    float: left;
+    text-align: center;
+
+     #frame-types{
+            display: none;
+        
+
+
+     >div{
+         padding-left: 10px;
+        height: 100%;
+        width: 30%;
+        float: left;
+        }
+    }
+      
+    	}
+
+
+     
