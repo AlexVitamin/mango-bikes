@@ -3,47 +3,90 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Bikes Test</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>	
 </head>
 <body style="">
 	
-	<canvas id="viewport" width="800" height="496" style="float:left; width:55%; "></canvas>
-	<div id="partsList" style=" float:left; width:15%; height:100%">
-    	 
-    <div class="select-component" id="" data-panels="frameset">    <span class="select-component__text">Frame</span></div>
-     <div class="select-component " id="" data-panels="fork">    <span class="select-component__text">Fork</span></div>
-      <div class="select-component" id="" data-panels="handlebars">    <span class="select-component__text">Handlebars</span></div> 
-      <div class="select-component" id="" data-panels="seat">    <span class="select-component__text">Seat</span></div>
-       <div class="select-component" id="" data-panels="frontTyre">    <span class="select-component__text">Front Tyre</span></div>
-     <div class="select-component" id="" data-panels="backTyre">    <span class="select-component__text">Back Tyre</span></div>
-      <div class="select-component" id="" data-panels="frontRim">    <span class="select-component__text">Front Rim</span></div> 
-      <div class="select-component" id="" data-panels="backRim">    <span class="select-component__text">Back Rim</span></div>
-       <div class="select-component" id="" data-panels="pedals">    <span class="select-component__text">Pedals</span></div> 
-      <div class="select-component" id="" data-panels="chain">    <span class="select-component__text">Chain</span></div>
+  <div class="bikeBuilder">
+      	<canvas id="viewport"></canvas>
+      	<div id="partsList" style="">
+          	 
+          <div class="select-component active" id="frame" data-panels="frameset">    <span class="select-component__text">Frame</span></div>
+           <div class="select-component " id="" data-panels="fork">    <span class="select-component__text">Fork</span></div>
+            <div class="select-component" id="" data-panels="handlebars">    <span class="select-component__text">Handlebars</span></div> 
+            <div class="select-component" id="" data-panels="seat">    <span class="select-component__text">Seat</span></div>
+             <div class="select-component" id="" data-panels="frontTyre">    <span class="select-component__text">Front Tyre</span></div>
+           <div class="select-component" id="" data-panels="backTyre">    <span class="select-component__text">Back Tyre</span></div>
+            <div class="select-component" id="" data-panels="frontRim">    <span class="select-component__text">Front Rim</span></div> 
+            <div class="select-component" id="" data-panels="backRim">    <span class="select-component__text">Back Rim</span></div>
+             <div class="select-component" id="" data-panels="pedals">    <span class="select-component__text">Pedals</span></div> 
+            <div class="select-component" id="" data-panels="chain">    <span class="select-component__text">Chain</span></div>
 
 
-    </div>
-	<div id="options" style="float:left; width:25%;">
-     <div class="secondaryOptions">
-         <h2>Styles</h2>
+          </div>
+      	<div id="options" style="">
+           <div id="frameOptions" class="secondaryOptions">
+           <div id="styles" class="styles">
+               <h2>Styles</h2>
+               
+                  <!-- <div class="style-option"></div>
+                  <div class="style-option"></div>
+                  <div class="style-option"></div> -->
+                
+                    <img src="" alt="" />
+                    <img src=""  alt="" />
+                    <img src="" alt="" />
 
-     </div>  
-     <div class="secondaryOptions">
-         <h2>Materials</h2>
-        <!--  <select>
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="opel">Opel</option>
-          <option value="audi">Audi</option>
-        </select> -->
-     </div> 
-     <div class="secondaryOptions">
-         <h2>Colours</h2>
-     </div>    
-    </div>
+              
+                </div> <br><br>
+
+          
+          <div id="materials" class="materials">
+               <h2>Materials</h2>
+
+             <select>
+                <option value="leather">Leather</option>
+                <option value="metal">Metal</option>
+                <option value="rubber">Rubber</option>
+                <option value="plastic">Plastic</option>
+              </select>
+           </div>
+           
+           <div id="colours" class="colours"><h2>Colours</h2>
+                    <img src="" alt="" />
+                    <img src=""  alt="" />
+                    <img src="" alt="" />
+                    <img src="" alt="" />
+                    <img src=""  alt="" />
+                    <img src="" alt="" />
+                    <img src="" alt="" />
+                    <img src=""  alt="" />
+                    <img src="" alt="" />
+                    <img src="" alt="" />
+                    <img src=""  alt="" />
+                    <img src="" alt="" />
+
+           </div>
+              
+
+           </div> 
+
+           <div class="totalBuy">
+             <div class="totalCost">£269.99</div>
+             <div class="addBasket" id="addBasket">Add to Basket</div>
+             <div class="promo">
+             <img src="" alt="">
+           </div>
+           <div class="dispatch">
+             <h5>Estimated Dispatch</h5>
+             <p>Order now and we'll dispatch your bike within 10-12 working days. All bikes are hand built to order by one of our trained mechanics and quality checked before being disaptched.</p>
+           </div>
+           </div> 
+
+           
+
+          </div>
+    </div>      
 <script type="text/javascript" src="bikeBuilder.bundle.js"></script></body>
 
-<script>$(".selectComponent").click(function(){
-    $(".selectComponent").addClass("active");
-});</script>
+
 </html>
