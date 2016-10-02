@@ -6,23 +6,114 @@
 
 body{
     	background-color: #f2f2f2;
-      // width: 100vw;
-      // height: 100%;
     }
 
+       #popup{
+          height: 40px;
+          width: 20%;
+        background-color: #ef501e;
+        color: white;
+        cursor: pointer;
+        margin-top:10px;
+        margin-bottom: 10px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 40px;
+        margin: 10px auto;
+        }
 
-    	.variationManger{
-         margin-left: 60px;
-    		 color: black;
-		     // width:100vw;
-		     height:100vh;
-             // position: absolute;
-         overflow-x: scroll;
-         width: auto;
-      white-space: nowrap;
+         .modal {
+          position: absolute;
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 1; /* Sit on top */
+          padding-top: 100px; /* Location of the box */
+          left: 0;
+          top: 0;
+          width: 100%; /* Full width */
+          height: 100%; /* Full height */
+          overflow: auto; /* Enable scroll if needed */
+          background-color: rgb(0,0,0); /* Fallback color */
+          background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+              }
+
+        /* Modal Content */
+        .modal-content {
+          position: relative;
+            background-color: #fefefe;
+            margin: auto;
+            border: 1px solid #888;
+            width: 50%;
+            text-align: justify;
+           
+           >div{ 
+            background-color: #f4f3f4;
+            >h4{
+              font-size: @sizeMedium;
+              padding-left: 20px;
+            }
+
+          }
+
+             .imageUploadBTN{
+            background-color: #f04e2b;
+            width:30%;
+            height: 26px;
+            color: white;
+            margin: 25px auto;
+            padding-top: 16px;
+            padding-left: 10px;
+            margin-bottom: 30px;
+
+            &:hover{
+              cursor: pointer;
+            }
+          }
+
+          >img{
+                width:20px; 
+                height:20px;
+                margin-right: 2px;
+                cursor: pointer;
+                      }
+
+            >p{
+              position: relative;
+              overflow: none;
+              color: #8f8f8f;
+              padding-left: 30px;
+              padding-right: 30px;
+            }
+
+            >div{
+              padding: 10px;
+
+
+            }
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            padding-right: 10px;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+
+      
 
       .saveButton{
         height: 40px;
+        width: 20%;
         background-color: #ef501e;
         color: white;
         cursor: pointer;
@@ -32,46 +123,48 @@ body{
         text-align: center;
         vertical-align: middle;
         line-height: 40px;
+        margin: 0 auto;
         // padding: 20px;
                }
 
+    	.variationManger{
+         margin-left: 60px;
+         margin-bottom: 10px;
+    		 color: black;
+		     height:100vh;
+         width: 200vw;
+         white-space: nowrap;
+         position: relative;
+         // overflow-x: scroll;
+         // overflow-y: hidden;
+         // width: 1200px;
+         overflow-x: auto;
+
+
         .openVariation{
           height: 40px;
-        background-color: #f8f8f8;
-        color: #8f8f8f;
-        font-size: @sizeSmall;
-        cursor: pointer;
-        text-align: center;
-        vertical-align: middle;
-        padding-top: 5px;
+          line-height: 40px;
+          width: 10%;
+          background-color: #f8f8f8;
+          color: #8f8f8f;
+          font-size: @sizeSmall;
+          cursor: pointer;
+          text-align: center;
+          vertical-align: middle;
+          margin-bottom: 10px;
+
         // margin:0 auto;
+        // -webkit-transform: rotate(90deg);
+        // -moz-transform: rotate(90deg);
+        // -o-transform: rotate(90deg);
+        // -ms-transform: rotate(90deg);
+        // transform: rotate(90deg);
         }
-      
-
-        // .helpContainer{
-        //    width: 70%;
-        //    height: 200px;
-        //    background-color: #f9f9f9;
-        //    margin-bottom: 20px;
-        //    position: relative;
-
-        //    .modelHelp{
-        //     position: relative;
-        //        height: 100%;
-        //        width: 50%;
-        //        text-align: left;
-        //    }
-        //    .variationHelp{
-        //        height: 100%;
-        //        width: 50%;
-        //    }
-        // }
-
-
 
 
               .add-new{
                 cursor: pointer;
+                margin-top: 8px;
 
                 &:hover{
                   color: #f04e2b;
@@ -83,43 +176,81 @@ body{
               color: #585858;
            }
 
+          .help{
+            position: relative;
+              height: 20%;
+             // line-height: 40px;
+          width: 30%;
+          background-color: #f8f8f8;
+          color: #8f8f8f;
+          
+          text-align: left;
+          vertical-align: left;
+          margin-bottom: 10px;
+          padding-left: 20px;
+          padding-top: 10px;
+
+          >div{
+            float: left;
+            margin-left: 20px;
+            >h4{
+                color:black;
+                margin: 0;
+                font-size: @sizeMedium;
+            }
+            >p{
+              font-size: @sizeSmall;
+               // position: relative;
+              // overflow: hidden;
+              float: left;
+              // word-wrap:break-word;
+              width: inherit;
+              overflow-x: hidden;
+              overflow-y: scroll;
+            }
+          }
+            
+          }
+
        
 
-      .sContainer{
-        border-style: solid;
-    border-width: 5px;
-    border-color: #f2f2f2;
-    background-color: #f9f9f9;
-    width: 20%;
-    height: 90%;
-    float: left;
-    text-align: center;
+          .sContainer{
+            margin-right: 10px;
+            background-color: #f9f9f9;
+            width: 10%;
+            max-width: 20%;
+            height: 100%;
+            
+            float: left;
+            text-align: center;
+            display: inline-block; *display: inline;
 
-    // >hr{
-    //   70%;
-    // }
+                  >hr{
+                    width:70%;
+                  }
 
 
  
 
 
-      .speed-list{
-         // height: 100%;
+          .speed-list{
+             // height: 100%;
 
-         >select{
-           display: inline-block; 
-           border: 0;
-           border-radius: 0;
-           background-color: #f4f3f4;
-           width: 100%;
-           text-align: center;
-           font-size: @sizeMedium-small;
-            overflow:auto;
-            outline:none;
 
-             >.odd{
-              background-color: #f9f9f9;
-            }
+             >select{
+               display: inline-block; 
+               border: 0;
+               border-radius: 0;
+               background-color: #f4f3f4;
+               width: 100%;
+               text-align: center;
+               font-size: @sizeMedium-small;
+                overflow:auto;
+                outline:none;
+
+                 >.odd{
+                  background-color: #f9f9f9;
+                }
 
               
 
@@ -141,6 +272,7 @@ body{
         }
        }
         
+
       }
 
       .parts-list{
@@ -150,7 +282,7 @@ body{
            border: 0;
            border-radius: 0;
            background-color: #f4f3f4;
-           height: 90%;
+           max-height: 90%;
            width: 100%;
            text-align: center;
            display: none;
@@ -159,6 +291,7 @@ body{
              appearance: none;
              outline:none;
              overflow-y: scroll;
+             position: inherit;
             
 
             >.odd{
@@ -175,8 +308,9 @@ body{
 
            &:hover{
                color: #ef501e;
+              
 
-               >h4{
+               >span{
                 display: none;
                }
               } 
@@ -188,41 +322,43 @@ body{
 
     
     .lContainer{
-        border-style: solid;
-    border-width: 5px;
-     border-color: #f2f2f2;
+    //     border-style: solid;
+    // border-width: 5px;
+    //  border-color: #f2f2f2;
+    margin-right: 10px;
     background-color: #f9f9f9;
-    width: 50%;
-    height: 90%;
+    width: 25%;
+    height: 100%;
     float: left;
     text-align: center;
 
-     #frame-types{
+
+
+     #types,#types1,#types2, #addNewType{
             display: none;
         
-
-
-     >div{
-         padding-left: 10px;
-        height: 100%;
-        width: 30%;
-        float: left;
-        }
-
-     >select{
+    >select{
         border: 0;
            border-radius: 0;
            background-color: #f4f3f4;
+           max-height: 90%;
            width: 100%;
            text-align: center;
-          display: none;
+           display: none;
+           // -webkit-appearance: none;
+           //   -moz-appearance: none;
+           //   appearance: none;
+             outline:none;
+             overflow-y: scroll;
+             position: inherit;
 
         >option{
             cursor: pointer;
-            height: 50px;
+            height: 40px;
             margin: 0;
             line-height: 50px;
-            font-size: @sizeSmall;
+            font-size: @sizeMedium-small;
+            padding-top:20px;
 
 
            &:hover{
@@ -230,6 +366,23 @@ body{
               } 
         }
        }
+      
+     >div{
+         padding-left: 10px;
+        height: 100%;
+        width: 30%;
+        float: left;
+
+
+        >hr{
+      width: 85%;
+    }
+
+
+     
+        }
+
+    
 
     }
 
@@ -275,8 +428,9 @@ body{
 
    #VariationsContainer{
       float: left;
-      width: 75%;
-      position: relative;
+      width: 35%;
+      max-width: 75%;
+      position: inherit;
 
       .column{
         float: left;

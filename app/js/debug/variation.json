@@ -1,0 +1,344 @@
+module.exports = [{
+	"name": "single speed",
+	"Id": "UBHEEZA1jrWGkRBWmfPu",
+	"parts": [{
+		"name": "frame",
+		"layer": 3,
+		"Id": "pzrR76g5w7Mzo5Am9qBD",
+		"aspects": [{
+			"name": "material",
+			"type": "list",
+			"Id": "QeDe7SGbPexKgBPC20IY",
+			"opts": [{
+				"name": "plastic",
+				"Id": "2Nz092S3k7EoabI09TWp"
+			}, {
+				"name": "rubber",
+				"Id": "3y7iGVJZhxT8Km7L0c22"
+			}, {
+				"name": "glass",
+				"Id": "V3L9KEkDNVXpDlhNabYW"
+			}, {
+				"name": "cloth",
+				"Id": "lY01UUXjLnaKFRaOyMWr"
+			}, {
+				"name": "cloth",
+				"Id": "lY01UUXjLnaKFRaOyMWr"
+			}]
+		}, {
+			"name": "colour",
+			"type": "color",
+			"Id": "jYKJ62C2Utc6yHwPiSfV",
+			"opts": [{
+				"name": "red",
+				"hex": "ff0000",
+				"Id": "MBARzuNDXDUs4PADN66Z"
+			}, {
+				"name": "green",
+				"hex": "00ff00",
+				"Id": "mYd4VpXYGsEqaBB5nN6Z"
+			}, {
+				"name": "blue",
+				"hex": "0000ff",
+				"Id": "TJ3T4QKsNfOnWqUwSOWf"
+			}]
+		}, {
+			"name": "size",
+			"type": "icon",
+			"Id": "aXqneCEjPHR8xoLgAzt7",
+			"opts": [{
+				"name": "small",
+				"Id": "yzi0JrKAdfO7EBkEMXGv"
+			}, {
+				"name": "medium",
+				"Id": "T3tFxpF4kq2pa4hXcpVt"
+			}, {
+				"name": "large",
+				"Id": "tIFykolLZre3NnkKShMK"
+			}]
+		}]
+	}, {
+		"name": "saddle",
+		"layer": 1,
+		"Id": "gxjiYyGz6beKbYmoTPiB",
+		"aspects": [{
+			"name": "material",
+			"type": "list",
+			"Id": "4hde5vyE8ck5NCX6MOcv",
+			"opts": [{
+				"name": "chocolate",
+				"Id": "5WvKQFOBzKOwg59pOCRD"
+			}, {
+				"name": "rubber",
+				"Id": "J7CN8fEI4qJJ2p7UuD3r"
+			}]
+		}, {
+			"name": "colour",
+			"type": "color",
+			"Id": "t2wqwhi964qrinwRCdFz",
+			"opts": [{
+				"name": "black",
+				"hex": "000000",
+				"Id": "TE0QpUpgc1suZ5KGdIaf"
+			}, {
+				"name": "grey",
+				"hex": "777777",
+				"Id": "mY9cukaxYO8mnrWodm9R"
+			}, {
+				"name": "white",
+				"hex": "ffffff",
+				"Id": "1Wj9n7XD1JV3P5H39Xkz"
+			}]
+		}]
+	}, {
+		"name": "bottle",
+		"layer": 2,
+		"Id": "abrU3WZrBmK5TgBjpYRG",
+		"aspects": [{
+			"name": "capacity",
+			"type": "list",
+			"Id": "OYKHVTwSFVIzyq2OiwBM",
+			"opts": [{
+				"name": "100ml",
+				"Id": "R94qkfW6pddVYIxZkGZU"
+			}, {
+				"name": "200ml",
+				"Id": "CtZfR1jV5hTlq2cQawbT"
+			}, {
+				"name": "500ml",
+				"Id": "CJDQx69S0Mjz0dipyJst"
+			}, {
+				"name": "750ml",
+				"Id": "FfU9PKPymdtqVb6np346"
+			}, {
+				"name": "1000ml",
+				"Id": "4W9sm1ZeFDxgPW74Oo6E"
+			}]
+		}, {
+			"name": "colour",
+			"type": "color",
+			"Id": "ahz43yxBBOY8pjfu8mtL",
+			"opts": [{
+				"name": "brown",
+				"hex": "343214",
+				"Id": "ncycGlqm1uAR0B6tWXdR"
+			}, {
+				"name": "orange",
+				"hex": "856a89",
+				"Id": "aNARVReEm4MWNlQlKCpl"
+			}, {
+				"name": "white",
+				"hex": "ffffff",
+				"Id": "4ldPyvJagESc69Qn9xoi"
+			}, {
+				"name": "blue",
+				"hex": "0000ff",
+				"Id": "zs80aPJhRMU0XAspxueH"
+			}]
+		}, {
+			"name": "taste",
+			"type": "icon",
+			"Id": "QDXRnMLeivUwxfGYVMsy",
+			"opts": [{
+				"name": "blueberry",
+				"Id": "oVg7K0G95doZBzQaa1mL"
+			}, {
+				"name": "raspberry",
+				"Id": "pk1RD1qUVtNJR8kf7fAk"
+			}, {
+				"name": "pineapple",
+				"Id": "opuYCvQ23UlxZSkG7mlG"
+			}, {
+				"name": "banana",
+				"Id": "0kqaZEq6kpty2aPvUFlk"
+			}]
+		}]
+	}, {
+		"name": "saddle",
+		"layer": 1,
+		"Id": "gxjiYyGz6beKbYmoTPiB",
+		"aspects": [{
+			"name": "material",
+			"type": "list",
+			"Id": "4hde5vyE8ck5NCX6MOcv",
+			"opts": [{
+				"name": "chocolate",
+				"Id": "5WvKQFOBzKOwg59pOCRD"
+			}, {
+				"name": "rubber",
+				"Id": "J7CN8fEI4qJJ2p7UuD3r"
+			}]
+		}, {
+			"name": "colour",
+			"type": "color",
+			"Id": "t2wqwhi964qrinwRCdFz",
+			"opts": [{
+				"name": "black",
+				"hex": "000000",
+				"Id": "TE0QpUpgc1suZ5KGdIaf"
+			}, {
+				"name": "grey",
+				"hex": "777777",
+				"Id": "mY9cukaxYO8mnrWodm9R"
+			}, {
+				"name": "white",
+				"hex": "ffffff",
+				"Id": "1Wj9n7XD1JV3P5H39Xkz"
+			}]
+		}]
+	}],
+
+ //    "name": "sixteen speed",
+	// "Id": "UBHEEZA1jrWGkRBWmfPu",
+	// "parts": [{
+	// 	"name": "frame",
+	// 	"layer": 3,
+	// 	"Id": "pzrR76g5w7Mzo5Am9qBD",
+	// 	"aspects": [{
+	// 		"name": "material",
+	// 		"type": "list",
+	// 		"Id": "QeDe7SGbPexKgBPC20IY",
+	// 		"opts": [{
+	// 			"name": "plastic",
+	// 			"Id": "2Nz092S3k7EoabI09TWp"
+	// 		}, {
+	// 			"name": "rubber",
+	// 			"Id": "3y7iGVJZhxT8Km7L0c22"
+	// 		}, {
+	// 			"name": "glass",
+	// 			"Id": "V3L9KEkDNVXpDlhNabYW"
+	// 		}, {
+	// 			"name": "cloth",
+	// 			"Id": "lY01UUXjLnaKFRaOyMWr"
+	// 		}]
+	// 	}, {
+	// 		"name": "colour",
+	// 		"type": "color",
+	// 		"Id": "jYKJ62C2Utc6yHwPiSfV",
+	// 		"opts": [{
+	// 			"name": "red",
+	// 			"hex": "ff0000",
+	// 			"Id": "MBARzuNDXDUs4PADN66Z"
+	// 		}, {
+	// 			"name": "green",
+	// 			"hex": "00ff00",
+	// 			"Id": "mYd4VpXYGsEqaBB5nN6Z"
+	// 		}, {
+	// 			"name": "blue",
+	// 			"hex": "0000ff",
+	// 			"Id": "TJ3T4QKsNfOnWqUwSOWf"
+	// 		}]
+	// 	}, {
+	// 		"name": "size",
+	// 		"type": "icon",
+	// 		"Id": "aXqneCEjPHR8xoLgAzt7",
+	// 		"opts": [{
+	// 			"name": "small",
+	// 			"Id": "yzi0JrKAdfO7EBkEMXGv"
+	// 		}, {
+	// 			"name": "medium",
+	// 			"Id": "T3tFxpF4kq2pa4hXcpVt"
+	// 		}, {
+	// 			"name": "large",
+	// 			"Id": "tIFykolLZre3NnkKShMK"
+	// 		}]
+	// 	}]
+	// }, {
+	// 	"name": "saddle",
+	// 	"layer": 1,
+	// 	"Id": "gxjiYyGz6beKbYmoTPiB",
+	// 	"aspects": [{
+	// 		"name": "material",
+	// 		"type": "list",
+	// 		"Id": "4hde5vyE8ck5NCX6MOcv",
+	// 		"opts": [{
+	// 			"name": "chocolate",
+	// 			"Id": "5WvKQFOBzKOwg59pOCRD"
+	// 		}, {
+	// 			"name": "rubber",
+	// 			"Id": "J7CN8fEI4qJJ2p7UuD3r"
+	// 		}]
+	// 	}, {
+	// 		"name": "colour",
+	// 		"type": "color",
+	// 		"Id": "t2wqwhi964qrinwRCdFz",
+	// 		"opts": [{
+	// 			"name": "black",
+	// 			"hex": "000000",
+	// 			"Id": "TE0QpUpgc1suZ5KGdIaf"
+	// 		}, {
+	// 			"name": "grey",
+	// 			"hex": "777777",
+	// 			"Id": "mY9cukaxYO8mnrWodm9R"
+	// 		}, {
+	// 			"name": "white",
+	// 			"hex": "ffffff",
+	// 			"Id": "1Wj9n7XD1JV3P5H39Xkz"
+	// 		}]
+	// 	}]
+	// }, {
+	// 	"name": "bottle",
+	// 	"layer": 2,
+	// 	"Id": "abrU3WZrBmK5TgBjpYRG",
+	// 	"aspects": [{
+	// 		"name": "capacity",
+	// 		"type": "list",
+	// 		"Id": "OYKHVTwSFVIzyq2OiwBM",
+	// 		"opts": [{
+	// 			"name": "100ml",
+	// 			"Id": "R94qkfW6pddVYIxZkGZU"
+	// 		}, {
+	// 			"name": "200ml",
+	// 			"Id": "CtZfR1jV5hTlq2cQawbT"
+	// 		}, {
+	// 			"name": "500ml",
+	// 			"Id": "CJDQx69S0Mjz0dipyJst"
+	// 		}, {
+	// 			"name": "750ml",
+	// 			"Id": "FfU9PKPymdtqVb6np346"
+	// 		}, {
+	// 			"name": "1000ml",
+	// 			"Id": "4W9sm1ZeFDxgPW74Oo6E"
+	// 		}]
+	// 	}, {
+	// 		"name": "colour",
+	// 		"type": "color",
+	// 		"Id": "ahz43yxBBOY8pjfu8mtL",
+	// 		"opts": [{
+	// 			"name": "brown",
+	// 			"hex": "343214",
+	// 			"Id": "ncycGlqm1uAR0B6tWXdR"
+	// 		}, {
+	// 			"name": "orange",
+	// 			"hex": "856a89",
+	// 			"Id": "aNARVReEm4MWNlQlKCpl"
+	// 		}, {
+	// 			"name": "white",
+	// 			"hex": "ffffff",
+	// 			"Id": "4ldPyvJagESc69Qn9xoi"
+	// 		}, {
+	// 			"name": "blue",
+	// 			"hex": "0000ff",
+	// 			"Id": "zs80aPJhRMU0XAspxueH"
+	// 		}]
+	// 	}, {
+	// 		"name": "taste",
+	// 		"type": "icon",
+	// 		"Id": "QDXRnMLeivUwxfGYVMsy",
+	// 		"opts": [{
+	// 			"name": "blueberry",
+	// 			"Id": "oVg7K0G95doZBzQaa1mL"
+	// 		}, {
+	// 			"name": "raspberry",
+	// 			"Id": "pk1RD1qUVtNJR8kf7fAk"
+	// 		}, {
+	// 			"name": "pineapple",
+	// 			"Id": "opuYCvQ23UlxZSkG7mlG"
+	// 		}, {
+	// 			"name": "banana",
+	// 			"Id": "0kqaZEq6kpty2aPvUFlk"
+	// 		}]
+	// 	}]
+	// }],
+
+}]

@@ -45,25 +45,154 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(4);
-	var $ = __webpack_require__(10);
+	var $ = __webpack_require__(8);
+	var bikeApi = __webpack_require__(9);
+	var templates = __webpack_require__(10);
+	var variationJSON = __webpack_require__(11);
 
-	$(".select-component").click(function () {
-	   $(this).toggleClass("active");
-	   // $('#frameOptions').addClass("Hide");
-	});
+	var model = function () {
+	  var settings = {},
+	      _data = null;
 
-	$("#styles >img").click(function () {
-	   alert("style selected");
-	});
+	  settings.addData = function (data) {
+	    _data = data;
+	  };
 
-	$("#colours >img").click(function () {
-	   alert("colour selected");
-	   console.log(alt);
-	});
+	  settings.getState = function () {
+	    return $.extend(true, [], _data);
+	  };
 
-	$("#addBasket").click(function () {
-	   alert("save - added to basket ");
-	});
+	  settings.removeItem = function (id) {};
+
+	  settings.addType = function () {};
+
+	  return settings;
+	}();
+
+	var bikeApp = {
+	  start: function () {
+	    this.makecalltoserver();
+	    this.resizeCanavs();
+	    this.bindEvents();
+	  },
+	  makecalltoserver: function () {
+	    // variationApi({},function(response){
+	    //   //success
+	    //   // store data to model.
+	    //   model.addData(response);
+
+	    //   variationApp.render();
+
+	    // },function(){
+	    //   // error
+	    // });
+
+	    setTimeout(function () {
+
+	      model.addData(variationJSON);
+	      bikeApp.renderModel();
+	    }, 500);
+	  },
+	  resizeCanavs() {
+	    $(window).resize(function () {
+	      $('#canvas').height($('#canvas').width() / 2.031);
+	    });
+	  },
+
+	  renderModel() {
+
+	    var state = model.getState();
+
+	    for (var i = 0, len = state.length; i < len; i++) {
+
+	      var speed = state[i];
+	      var part = state[i].parts;
+	      var aspects = state[i].parts[i].aspects;
+	      var opts = state[i].parts[i].aspects[i].opts;
+
+	      for (var i in part) {
+	        $('#partsList').append(templates.getCustomBikeParts({
+	          Id: part[i].Id,
+	          name: part[i].name
+	        }));
+	      }
+
+	      for (var i in aspects) {
+	        $('#aspect1').append(templates.getAspectsName({
+	          aspectsName: aspects[i].name
+	        }));
+	      }
+
+	      for (var i in opts) {
+	        $('#testLists').append(templates.getAspectsList({
+	          optsName: opts[i].name
+	        }));
+	        $('#aspect1').append(templates.getAspectsIcon({
+	          aspectsName: aspects[i].name
+	        }));
+	      }
+
+	      //      $('#aspect1').append(templates.getAspectsList({
+	      //        optsName:state[i].parts[i].aspects[i].opts[i].name,
+	      //      }));
+	      //      $('#aspect1').append(templates.getAspectsList({
+	      //        optsName:state[i].parts[i].aspects[i].opts[1].name,
+	      //      }));
+	      //      $('#aspect1').append(templates.getAspectsList({
+	      //        optsName:state[i].parts[i].aspects[i].opts[2].name,
+	      //      }));
+
+
+	      //      $('#aspect2').append(templates.getAspectsName({
+	      //        aspectsName:state[i].parts[i].aspects[1].name,
+	      //      }));
+
+	      //      // $('#aspect2').append(templates.getAspectsList({
+	      //      //   aspectsName:state[i].parts[i].aspects[1].name,
+	      //      // }));
+
+
+	      //      $('#aspect3').append(templates.getAspectsName({
+	      //        aspectsName:state[i].parts[i].aspects[2].name,
+	      //      }));
+	      //      $('#aspect3').append(templates.getAspectsIcon({
+	      //        optsName:state[i].parts[i].aspects[2].opts[i].name,
+	      //      }));
+	      //      $('#aspect3').append(templates.getAspectsIcon({
+	      //        optsName:state[i].parts[i].aspects[2].opts[1].name,
+	      //      }));
+	      //      $('#aspect3').append(templates.getAspectsIcon({
+	      //        optsName:state[i].parts[i].aspects[2].opts[2].name,
+	      //      }));
+	      //       $('#aspect3').append(templates.getAspectsIcon({
+	      //        optsName:state[i].parts[i].aspects[2].opts[3].name,
+	      //      }));
+	    }
+	  },
+
+	  bindEvents() {
+	    $(".select-component").click(function () {
+	      $(this).toggleClass("active");
+	      $('#Options').toggleClass("Hide");
+	    });
+
+	    $("#Options >img").click(function () {
+	      alert("style selected");
+	    });
+
+	    $("#colours >img").click(function () {
+	      alert("colour selected");
+	      console.log(alt);
+	    });
+
+	    $("#addBasket").click(function () {
+	      alert("save - added to basket ");
+	    });
+	  }
+
+	};
+
+	bikeApp.start();
 
 /***/ },
 /* 1 */,
@@ -103,7 +232,7 @@
 
 
 	// module
-	exports.push([module.id, "/* Custom helpers */\n/* Snake effects */\n* {\n  font-family: 'Arial';\n  font-weight: 100;\n}\nbody {\n  color: black;\n  width: 100%;\n  height: 100%;\n}\n.bikeBuilder canvas {\n  border-style: solid;\n  border-width: 5px;\n  border-color: #f2f2f2;\n  float: left;\n  width: 55%;\n  height: 496px;\n}\n.bikeBuilder #partsList {\n  float: left;\n  width: 15%;\n  height: 100%;\n}\n.bikeBuilder #partsList .select-component {\n  padding: 1em;\n  border-bottom-width: 0;\n  border-right: 0;\n  color: #585858;\n  display: block;\n  /*margin-left: 1em;*/\n  background: white;\n  position: relative;\n  cursor: pointer;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -html-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  text-transform: uppercase;\n}\n.bikeBuilder #partsList .select-component:hover {\n  color: #f04e2b;\n}\n.bikeBuilder #partsList .active {\n  background-color: #f2f2f2;\n  color: #f04e2b;\n}\n.bikeBuilder #options {\n  border: 3px solid #f2f2f2;\n  background-color: ;\n  position: relative;\n  height: 760px !important;\n  float: left;\n  width: 26%;\n}\n.bikeBuilder #options .secondaryOptions {\n  margin-left: 15px;\n  margin-bottom: 40px;\n  height: 50%;\n}\n.bikeBuilder #options .secondaryOptions > h2 {\n  text-transform: uppercase;\n}\n.bikeBuilder #options .secondaryOptions > .styles {\n  width: inherit;\n  float: left;\n}\n.bikeBuilder #options .secondaryOptions > .styles > h2 {\n  text-transform: uppercase;\n}\n.bikeBuilder #options .secondaryOptions > .styles > img {\n  width: 80px;\n  height: 80px;\n  margin-right: 2px;\n  cursor: pointer;\n}\n.bikeBuilder #options .secondaryOptions > .materials {\n  width: 90%;\n  float: left;\n}\n.bikeBuilder #options .secondaryOptions > .materials > h2 {\n  text-transform: uppercase;\n}\n.bikeBuilder #options .secondaryOptions > .materials > select {\n  border: 1px solid #111;\n  background: #f2f2f2;\n  width: 100%;\n  padding: 5px 35px 5px 5px;\n  font-size: 16px;\n  color: #585858;\n  text-transform: uppercase;\n  border: 1px solid #ccc;\n  height: 34px;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n}\n.bikeBuilder #options .secondaryOptions .colours {\n  float: left;\n}\n.bikeBuilder #options .secondaryOptions .colours > h2 {\n  text-transform: uppercase;\n}\n.bikeBuilder #options .secondaryOptions .colours > img {\n  width: 40px;\n  height: 40px;\n  margin-right: 2px;\n  cursor: pointer;\n}\n.bikeBuilder #options .Hide {\n  visibility: hidden;\n}\n.bikeBuilder #options .totalBuy {\n  width: 100%;\n  height: 50%;\n  position: absolute;\n  margin-top: 20px;\n}\n.bikeBuilder #options .totalBuy .totalCost {\n  float: left;\n  width: 20%;\n  font-size: 24px;\n  color: #185eab;\n  margin-left: 40px;\n  margin-right: 10px;\n  padding-top: 10px;\n}\n.bikeBuilder #options .totalBuy .addBasket {\n  float: left;\n  text-align: center;\n  width: 30%;\n  margin-left: 40px;\n  position: relative;\n  font-family: Arial;\n  color: #ffffff;\n  font-size: 16px;\n  background: #f04e2b;\n  padding: 15px 25px 15px 25px;\n  text-decoration: none;\n  cursor: pointer;\n  margin-bottom: 20px;\n}\n.bikeBuilder #options .totalBuy .promo {\n  position: relative;\n  width: 100%;\n  margin-top: 20px;\n  height: 60px;\n  background-color: #185eab;\n  float: left;\n  margin-bottom: 30px;\n}\n.bikeBuilder #options .totalBuy .dispatch {\n  padding: 20px;\n}\n.bikeBuilder #options .totalBuy .dispatch > h5 {\n  font-size: 16px;\n  margin-bottom: 0;\n}\n.bikeBuilder #options .totalBuy .dispatch > p {\n  font-size: 14px;\n}\n@media all and (max-width: 1100px) {\n  body {\n    color: black;\n    width: 100%;\n    height: 100%;\n  }\n  .bikeBuilder canvas {\n    border-style: solid;\n    border-width: 5px;\n    border-color: #f2f2f2;\n    float: left;\n    width: 98%;\n    height: 400px;\n  }\n  .bikeBuilder #partsList {\n    float: left;\n    width: 28%;\n    height: 100%;\n  }\n  .bikeBuilder #partsList .select-component {\n    padding: 1em;\n    border-bottom-width: 0;\n    border-right: 0;\n    color: #585858;\n    display: block;\n    /*margin-left: 1em;*/\n    background: white;\n    position: relative;\n    cursor: pointer;\n    -webkit-touch-callout: none;\n    -webkit-user-select: none;\n    -html-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    text-transform: uppercase;\n  }\n  .bikeBuilder #partsList .select-component:hover {\n    color: #f04e2b;\n  }\n  .bikeBuilder #partsList .active {\n    background-color: #f2f2f2;\n    color: #f04e2b;\n  }\n  .bikeBuilder #options {\n    border: 3px solid #f2f2f2;\n    background-color: ;\n    position: relative;\n    height: 760px !important;\n    float: left;\n    width: 70%;\n  }\n  .bikeBuilder #options .secondaryOptions {\n    margin-left: 15px;\n    height: 50%;\n  }\n  .bikeBuilder #options .secondaryOptions > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions > .styles {\n    width: inherit;\n    float: left;\n  }\n  .bikeBuilder #options .secondaryOptions > .styles > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions > .styles > img {\n    width: 80px;\n    height: 80px;\n    margin-right: 2px;\n    cursor: pointer;\n  }\n  .bikeBuilder #options .secondaryOptions > .materials {\n    width: 90%;\n    float: left;\n  }\n  .bikeBuilder #options .secondaryOptions > .materials > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions > .materials > select {\n    border: 1px solid #111;\n    background: #f2f2f2;\n    width: 100%;\n    padding: 5px 35px 5px 5px;\n    font-size: 16px;\n    color: #585858;\n    text-transform: uppercase;\n    border: 1px solid #ccc;\n    height: 34px;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n  }\n  .bikeBuilder #options .secondaryOptions .colours {\n    float: left;\n  }\n  .bikeBuilder #options .secondaryOptions .colours > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions .colours > img {\n    width: 40px;\n    height: 40px;\n    margin-right: 2px;\n    cursor: pointer;\n  }\n  .bikeBuilder #options .Hide {\n    visibility: hidden;\n  }\n  .bikeBuilder #options .totalBuy {\n    width: 100%;\n    height: 50%;\n    position: absolute;\n    margin-top: 20px;\n  }\n  .bikeBuilder #options .totalBuy .totalCost {\n    float: left;\n    width: 20%;\n    font-size: 24px;\n    color: #185eab;\n    margin-left: 40px;\n    margin-right: 10px;\n    padding-top: 10px;\n  }\n  .bikeBuilder #options .totalBuy .addBasket {\n    float: left;\n    text-align: center;\n    width: 30%;\n    margin-left: 40px;\n    position: relative;\n    font-family: Arial;\n    color: #ffffff;\n    font-size: 16px;\n    background: #f04e2b;\n    padding: 15px 25px 15px 25px;\n    text-decoration: none;\n    cursor: pointer;\n    margin-bottom: 20px;\n  }\n  .bikeBuilder #options .totalBuy .promo {\n    position: relative;\n    width: 100%;\n    margin-top: 20px;\n    height: 60px;\n    background-color: #185eab;\n    float: left;\n    margin-bottom: 30px;\n  }\n  .bikeBuilder #options .totalBuy .dispatch {\n    padding: 20px;\n  }\n  .bikeBuilder #options .totalBuy .dispatch > h5 {\n    font-size: 16px;\n    margin-bottom: 0;\n  }\n  .bikeBuilder #options .totalBuy .dispatch > p {\n    font-size: 14px;\n  }\n}\n@media all and (max-width: 475px) {\n  body {\n    color: black;\n    width: 100%;\n    height: 100%;\n  }\n  .bikeBuilder canvas {\n    border-style: solid;\n    border-width: 5px;\n    border-color: #f2f2f2;\n    float: left;\n    width: 98%;\n    height: 400px;\n  }\n  .bikeBuilder #partsList {\n    float: left;\n    width: 20%;\n    height: 100%;\n  }\n  .bikeBuilder #partsList .select-component {\n    border-bottom-width: 0;\n    border-right: 0;\n    color: #585858;\n    display: block;\n    /*margin-left: 1em;*/\n    background: white;\n    position: relative;\n    cursor: pointer;\n    -webkit-touch-callout: none;\n    -webkit-user-select: none;\n    -html-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    text-transform: uppercase;\n    font-size: 14px;\n    overflow: hidden;\n  }\n  .bikeBuilder #partsList .select-component:hover {\n    color: #f04e2b;\n  }\n  .bikeBuilder #partsList .active {\n    background-color: #f2f2f2;\n    color: #f04e2b;\n  }\n  .bikeBuilder #options {\n    border: 3px solid #f2f2f2;\n    background-color: ;\n    position: relative;\n    height: 760px !important;\n    float: left;\n    width: 75%;\n  }\n  .bikeBuilder #options .secondaryOptions {\n    margin-left: 15px;\n    height: 50%;\n  }\n  .bikeBuilder #options .secondaryOptions > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions > .styles {\n    width: inherit;\n    float: left;\n  }\n  .bikeBuilder #options .secondaryOptions > .styles > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions > .styles > img {\n    width: 80px;\n    height: 80px;\n    margin-right: 2px;\n    cursor: pointer;\n  }\n  .bikeBuilder #options .secondaryOptions > .materials {\n    width: 90%;\n    float: left;\n  }\n  .bikeBuilder #options .secondaryOptions > .materials > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions > .materials > select {\n    border: 1px solid #111;\n    background: #f2f2f2;\n    width: 100%;\n    padding: 5px 35px 5px 5px;\n    font-size: 16px;\n    color: #585858;\n    text-transform: uppercase;\n    border: 1px solid #ccc;\n    height: 34px;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n  }\n  .bikeBuilder #options .secondaryOptions .colours {\n    float: left;\n  }\n  .bikeBuilder #options .secondaryOptions .colours > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions .colours > img {\n    width: 40px;\n    height: 40px;\n    margin-right: 2px;\n    cursor: pointer;\n  }\n  .bikeBuilder #options .Hide {\n    visibility: hidden;\n  }\n  .bikeBuilder #options .totalBuy {\n    width: 100%;\n    height: 50%;\n    position: absolute;\n    margin-top: 20px;\n  }\n  .bikeBuilder #options .totalBuy .totalCost {\n    float: left;\n    width: 20%;\n    font-size: 24px;\n    color: #185eab;\n    margin-left: 40px;\n    margin-right: 10px;\n    padding-top: 10px;\n  }\n  .bikeBuilder #options .totalBuy .addBasket {\n    float: left;\n    text-align: center;\n    width: 30%;\n    margin-left: 40px;\n    position: relative;\n    font-family: Arial;\n    color: #ffffff;\n    font-size: 16px;\n    background: #f04e2b;\n    padding: 15px 25px 15px 25px;\n    text-decoration: none;\n    cursor: pointer;\n    margin-bottom: 20px;\n  }\n  .bikeBuilder #options .totalBuy .promo {\n    position: relative;\n    width: 100%;\n    margin-top: 20px;\n    height: 60px;\n    background-color: #185eab;\n    float: left;\n    margin-bottom: 30px;\n  }\n  .bikeBuilder #options .totalBuy .dispatch {\n    padding: 20px;\n  }\n  .bikeBuilder #options .totalBuy .dispatch > h5 {\n    font-size: 16px;\n    margin-bottom: 0;\n  }\n  .bikeBuilder #options .totalBuy .dispatch > p {\n    font-size: 14px;\n  }\n}\n", ""]);
+	exports.push([module.id, "/* Custom helpers */\n/* Snake effects */\n* {\n  font-family: 'Arial';\n  font-weight: 100;\n}\nbody {\n  color: black;\n  width: 100%;\n  height: 100%;\n}\n.bikeBuilder canvas {\n  border-style: solid;\n  border-width: 5px;\n  border-color: #f2f2f2;\n  float: left;\n  width: 55%;\n  height: 496px;\n}\n.bikeBuilder #partsList {\n  float: left;\n  width: 15%;\n  height: 100%;\n}\n.bikeBuilder #partsList .select-component {\n  padding: 1em;\n  border-bottom-width: 0;\n  border-right: 0;\n  color: #585858;\n  display: block;\n  /*margin-left: 1em;*/\n  background: white;\n  position: relative;\n  cursor: pointer;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -html-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none;\n  text-transform: uppercase;\n}\n.bikeBuilder #partsList .select-component:hover {\n  color: #f04e2b;\n}\n.bikeBuilder #partsList .active {\n  background-color: #f2f2f2;\n  color: #f04e2b;\n}\n.bikeBuilder #options {\n  border: 3px solid #f2f2f2;\n  background-color: ;\n  position: relative;\n  height: 760px !important;\n  float: left;\n  width: 26%;\n}\n.bikeBuilder #options .secondaryOptions {\n  margin-left: 15px;\n  margin-bottom: 40px;\n  height: 50%;\n}\n.bikeBuilder #options .secondaryOptions > h2 {\n  text-transform: uppercase;\n}\n.bikeBuilder #options .secondaryOptions > .styles {\n  width: inherit;\n  float: left;\n}\n.bikeBuilder #options .secondaryOptions > .styles > h2 {\n  text-transform: uppercase;\n}\n.bikeBuilder #options .secondaryOptions > .styles > img {\n  width: 50px;\n  height: 50px;\n  margin-right: 2px;\n  cursor: pointer;\n}\n.bikeBuilder #options .secondaryOptions > .materials {\n  width: 90%;\n  float: left;\n}\n.bikeBuilder #options .secondaryOptions > .materials > h2 {\n  text-transform: uppercase;\n}\n.bikeBuilder #options .secondaryOptions > .materials > select {\n  border: 1px solid #111;\n  background: #f2f2f2;\n  width: 100%;\n  padding: 5px 35px 5px 5px;\n  font-size: 16px;\n  color: #585858;\n  text-transform: uppercase;\n  border: 1px solid #ccc;\n  height: 34px;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n}\n.bikeBuilder #options .secondaryOptions .colours {\n  float: left;\n}\n.bikeBuilder #options .secondaryOptions .colours > h2 {\n  text-transform: uppercase;\n}\n.bikeBuilder #options .secondaryOptions .colours > img {\n  width: 40px;\n  height: 40px;\n  margin-right: 2px;\n  cursor: pointer;\n}\n.bikeBuilder #options .Hide {\n  visibility: hidden;\n}\n.bikeBuilder #options .totalBuy {\n  width: 100%;\n  height: 50%;\n  position: absolute;\n  margin-top: 20px;\n}\n.bikeBuilder #options .totalBuy .totalCost {\n  float: left;\n  width: 20%;\n  font-size: 24px;\n  color: #185eab;\n  margin-left: 40px;\n  margin-right: 10px;\n  padding-top: 10px;\n}\n.bikeBuilder #options .totalBuy .addBasket {\n  float: left;\n  text-align: center;\n  width: 30%;\n  margin-left: 40px;\n  position: relative;\n  font-family: Arial;\n  color: #ffffff;\n  font-size: 16px;\n  background: #f04e2b;\n  padding: 15px 25px 15px 25px;\n  text-decoration: none;\n  cursor: pointer;\n  margin-bottom: 20px;\n}\n.bikeBuilder #options .totalBuy .promo {\n  position: relative;\n  width: 100%;\n  margin-top: 20px;\n  height: 60px;\n  background-color: #185eab;\n  float: left;\n  margin-bottom: 30px;\n}\n.bikeBuilder #options .totalBuy .dispatch {\n  padding: 20px;\n}\n.bikeBuilder #options .totalBuy .dispatch > h5 {\n  font-size: 16px;\n  margin-bottom: 0;\n}\n.bikeBuilder #options .totalBuy .dispatch > p {\n  font-size: 14px;\n}\n@media all and (max-width: 1100px) {\n  body {\n    color: black;\n    width: 100%;\n    height: 100%;\n  }\n  .bikeBuilder canvas {\n    border-style: solid;\n    border-width: 5px;\n    border-color: #f2f2f2;\n    float: left;\n    width: 98%;\n    height: 400px;\n  }\n  .bikeBuilder #partsList {\n    float: left;\n    width: 28%;\n    height: 100%;\n  }\n  .bikeBuilder #partsList .select-component {\n    padding: 1em;\n    border-bottom-width: 0;\n    border-right: 0;\n    color: #585858;\n    display: block;\n    /*margin-left: 1em;*/\n    background: white;\n    position: relative;\n    cursor: pointer;\n    -webkit-touch-callout: none;\n    -webkit-user-select: none;\n    -html-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    text-transform: uppercase;\n  }\n  .bikeBuilder #partsList .select-component:hover {\n    color: #f04e2b;\n  }\n  .bikeBuilder #partsList .active {\n    background-color: #f2f2f2;\n    color: #f04e2b;\n  }\n  .bikeBuilder #options {\n    border: 3px solid #f2f2f2;\n    background-color: ;\n    position: relative;\n    height: 760px !important;\n    float: left;\n    width: 70%;\n  }\n  .bikeBuilder #options .secondaryOptions {\n    margin-left: 15px;\n    height: 50%;\n  }\n  .bikeBuilder #options .secondaryOptions > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions > .styles {\n    width: inherit;\n    float: left;\n  }\n  .bikeBuilder #options .secondaryOptions > .styles > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions > .styles > img {\n    width: 80px;\n    height: 80px;\n    margin-right: 2px;\n    cursor: pointer;\n  }\n  .bikeBuilder #options .secondaryOptions > .materials {\n    width: 90%;\n    float: left;\n  }\n  .bikeBuilder #options .secondaryOptions > .materials > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions > .materials > select {\n    border: 1px solid #111;\n    background: #f2f2f2;\n    width: 100%;\n    padding: 5px 35px 5px 5px;\n    font-size: 16px;\n    color: #585858;\n    text-transform: uppercase;\n    border: 1px solid #ccc;\n    height: 34px;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n  }\n  .bikeBuilder #options .secondaryOptions .colours {\n    float: left;\n  }\n  .bikeBuilder #options .secondaryOptions .colours > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions .colours > img {\n    width: 40px;\n    height: 40px;\n    margin-right: 2px;\n    cursor: pointer;\n  }\n  .bikeBuilder #options .Hide {\n    visibility: hidden;\n  }\n  .bikeBuilder #options .totalBuy {\n    width: 100%;\n    height: 50%;\n    position: absolute;\n    margin-top: 20px;\n  }\n  .bikeBuilder #options .totalBuy .totalCost {\n    float: left;\n    width: 20%;\n    font-size: 24px;\n    color: #185eab;\n    margin-left: 40px;\n    margin-right: 10px;\n    padding-top: 10px;\n  }\n  .bikeBuilder #options .totalBuy .addBasket {\n    float: left;\n    text-align: center;\n    width: 30%;\n    margin-left: 40px;\n    position: relative;\n    font-family: Arial;\n    color: #ffffff;\n    font-size: 16px;\n    background: #f04e2b;\n    padding: 15px 25px 15px 25px;\n    text-decoration: none;\n    cursor: pointer;\n    margin-bottom: 20px;\n  }\n  .bikeBuilder #options .totalBuy .promo {\n    position: relative;\n    width: 100%;\n    margin-top: 20px;\n    height: 60px;\n    background-color: #185eab;\n    float: left;\n    margin-bottom: 30px;\n  }\n  .bikeBuilder #options .totalBuy .dispatch {\n    padding: 20px;\n  }\n  .bikeBuilder #options .totalBuy .dispatch > h5 {\n    font-size: 16px;\n    margin-bottom: 0;\n  }\n  .bikeBuilder #options .totalBuy .dispatch > p {\n    font-size: 14px;\n  }\n}\n@media all and (max-width: 475px) {\n  body {\n    color: black;\n    width: 100%;\n    height: 100%;\n  }\n  .bikeBuilder canvas {\n    border-style: solid;\n    border-width: 5px;\n    border-color: #f2f2f2;\n    float: left;\n    width: 98%;\n    height: 400px;\n  }\n  .bikeBuilder #partsList {\n    float: left;\n    width: 20%;\n    height: 100%;\n  }\n  .bikeBuilder #partsList .select-component {\n    border-bottom-width: 0;\n    border-right: 0;\n    color: #585858;\n    display: block;\n    /*margin-left: 1em;*/\n    background: white;\n    position: relative;\n    cursor: pointer;\n    -webkit-touch-callout: none;\n    -webkit-user-select: none;\n    -html-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    text-transform: uppercase;\n    font-size: 14px;\n    overflow: hidden;\n  }\n  .bikeBuilder #partsList .select-component:hover {\n    color: #f04e2b;\n  }\n  .bikeBuilder #partsList .active {\n    background-color: #f2f2f2;\n    color: #f04e2b;\n  }\n  .bikeBuilder #options {\n    border: 3px solid #f2f2f2;\n    background-color: ;\n    position: relative;\n    height: 760px !important;\n    float: left;\n    width: 75%;\n  }\n  .bikeBuilder #options .secondaryOptions {\n    margin-left: 15px;\n    height: 50%;\n  }\n  .bikeBuilder #options .secondaryOptions > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions > .styles {\n    width: inherit;\n    float: left;\n  }\n  .bikeBuilder #options .secondaryOptions > .styles > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions > .styles > img {\n    width: 80px;\n    height: 80px;\n    margin-right: 2px;\n    cursor: pointer;\n  }\n  .bikeBuilder #options .secondaryOptions > .materials {\n    width: 90%;\n    float: left;\n  }\n  .bikeBuilder #options .secondaryOptions > .materials > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions > .materials > select {\n    border: 1px solid #111;\n    background: #f2f2f2;\n    width: 100%;\n    padding: 5px 35px 5px 5px;\n    font-size: 16px;\n    color: #585858;\n    text-transform: uppercase;\n    border: 1px solid #ccc;\n    height: 34px;\n    -webkit-appearance: none;\n    -moz-appearance: none;\n    appearance: none;\n  }\n  .bikeBuilder #options .secondaryOptions .colours {\n    float: left;\n  }\n  .bikeBuilder #options .secondaryOptions .colours > h2 {\n    text-transform: uppercase;\n  }\n  .bikeBuilder #options .secondaryOptions .colours > img {\n    width: 40px;\n    height: 40px;\n    margin-right: 2px;\n    cursor: pointer;\n  }\n  .bikeBuilder #options .Hide {\n    visibility: hidden;\n  }\n  .bikeBuilder #options .totalBuy {\n    width: 100%;\n    height: 50%;\n    position: absolute;\n    margin-top: 20px;\n  }\n  .bikeBuilder #options .totalBuy .totalCost {\n    float: left;\n    width: 20%;\n    font-size: 24px;\n    color: #185eab;\n    margin-left: 40px;\n    margin-right: 10px;\n    padding-top: 10px;\n  }\n  .bikeBuilder #options .totalBuy .addBasket {\n    float: left;\n    text-align: center;\n    width: 30%;\n    margin-left: 40px;\n    position: relative;\n    font-family: Arial;\n    color: #ffffff;\n    font-size: 16px;\n    background: #f04e2b;\n    padding: 15px 25px 15px 25px;\n    text-decoration: none;\n    cursor: pointer;\n    margin-bottom: 20px;\n  }\n  .bikeBuilder #options .totalBuy .promo {\n    position: relative;\n    width: 100%;\n    margin-top: 20px;\n    height: 60px;\n    background-color: #185eab;\n    float: left;\n    margin-bottom: 30px;\n  }\n  .bikeBuilder #options .totalBuy .dispatch {\n    padding: 20px;\n  }\n  .bikeBuilder #options .totalBuy .dispatch > h5 {\n    font-size: 16px;\n    margin-bottom: 0;\n  }\n  .bikeBuilder #options .totalBuy .dispatch > p {\n    font-size: 14px;\n  }\n}\n", ""]);
 
 	// exports
 
@@ -417,9 +546,7 @@
 
 
 /***/ },
-/* 8 */,
-/* 9 */,
-/* 10 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*eslint-disable no-unused-vars*/
@@ -10497,6 +10624,425 @@
 	return jQuery;
 	} );
 
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	module.exports = {
+			getVariations: function (data, success, error) {
+					$.ajax({
+							'method': 'GET',
+							'url': 'YOU URL HERE',
+							dataType: 'json',
+							data: JSON.stringify(data),
+							success: function (response) {
+									if (typeof success === 'function') success(response);
+							},
+							error: function (error) {
+									if (typeof error === 'function') error(response);
+							}
+					});
+			}
+	};
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	module.exports = {
+
+		// Model Builder 
+
+		getSpeedItem: function (obj) {
+			return '<option color="#ff" data-id="' + obj.Id + '" class="select-speed" value="' + obj.name + '">' + obj.name + '</option>';
+		},
+		getPartsItem: function (obj) {
+			return '<option class="select-part" value="' + obj.partsName + '">' + obj.partsName + '</option>';
+		},
+
+		getAspects: function (obj) {
+			return '<div class="types-list"><h1>' + obj.aspectsName + '</h1> <hr> <select class="select" size="6" id="optsList"></select></div>';
+		},
+
+		getOpts: function (obj) {
+			return '<option data-id="' + obj.optsName + '" class="select-part" value="' + obj.optsName + '">' + obj.optsName + '</option>';
+		},
+
+		// Bike Builder 
+
+		getCustomBikeParts: function (obj) {
+			return '<div class="select-component" id="' + obj.Id + '" data-panels="' + obj.name + '"><span class="select-component__text">' + obj.name + '</span></div>';
+		},
+
+		getAspectsName: function (obj) {
+			return '<h2>' + obj.aspectsName + '</h2><select id="testLists"></select>';
+		},
+
+		getAspectsIcon: function (obj) {
+			return '<img src="" alt="' + obj.optsName + '"/>';
+		},
+
+		getAspectsList: function (obj) {
+			return '<option class="select-part" value="' + obj.optsName + '">' + obj.optsName + '</option>';
+		},
+
+		getColourSwatch: function (obj) {
+			// send the hex code, use that to know which colour to display inside a box to show to the user
+			return '<img src="" alt="' + obj.optsName + '"/>';
+		}
+	};
+
+	//$('option[data-id="'+obj.Id+'"]').val('dfsdf');
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	module.exports = [{
+		"name": "single speed",
+		"Id": "UBHEEZA1jrWGkRBWmfPu",
+		"parts": [{
+			"name": "frame",
+			"layer": 3,
+			"Id": "pzrR76g5w7Mzo5Am9qBD",
+			"aspects": [{
+				"name": "material",
+				"type": "list",
+				"Id": "QeDe7SGbPexKgBPC20IY",
+				"opts": [{
+					"name": "plastic",
+					"Id": "2Nz092S3k7EoabI09TWp"
+				}, {
+					"name": "rubber",
+					"Id": "3y7iGVJZhxT8Km7L0c22"
+				}, {
+					"name": "glass",
+					"Id": "V3L9KEkDNVXpDlhNabYW"
+				}, {
+					"name": "cloth",
+					"Id": "lY01UUXjLnaKFRaOyMWr"
+				}, {
+					"name": "cloth",
+					"Id": "lY01UUXjLnaKFRaOyMWr"
+				}]
+			}, {
+				"name": "colour",
+				"type": "color",
+				"Id": "jYKJ62C2Utc6yHwPiSfV",
+				"opts": [{
+					"name": "red",
+					"hex": "ff0000",
+					"Id": "MBARzuNDXDUs4PADN66Z"
+				}, {
+					"name": "green",
+					"hex": "00ff00",
+					"Id": "mYd4VpXYGsEqaBB5nN6Z"
+				}, {
+					"name": "blue",
+					"hex": "0000ff",
+					"Id": "TJ3T4QKsNfOnWqUwSOWf"
+				}]
+			}, {
+				"name": "size",
+				"type": "icon",
+				"Id": "aXqneCEjPHR8xoLgAzt7",
+				"opts": [{
+					"name": "small",
+					"Id": "yzi0JrKAdfO7EBkEMXGv"
+				}, {
+					"name": "medium",
+					"Id": "T3tFxpF4kq2pa4hXcpVt"
+				}, {
+					"name": "large",
+					"Id": "tIFykolLZre3NnkKShMK"
+				}]
+			}]
+		}, {
+			"name": "saddle",
+			"layer": 1,
+			"Id": "gxjiYyGz6beKbYmoTPiB",
+			"aspects": [{
+				"name": "material",
+				"type": "list",
+				"Id": "4hde5vyE8ck5NCX6MOcv",
+				"opts": [{
+					"name": "chocolate",
+					"Id": "5WvKQFOBzKOwg59pOCRD"
+				}, {
+					"name": "rubber",
+					"Id": "J7CN8fEI4qJJ2p7UuD3r"
+				}]
+			}, {
+				"name": "colour",
+				"type": "color",
+				"Id": "t2wqwhi964qrinwRCdFz",
+				"opts": [{
+					"name": "black",
+					"hex": "000000",
+					"Id": "TE0QpUpgc1suZ5KGdIaf"
+				}, {
+					"name": "grey",
+					"hex": "777777",
+					"Id": "mY9cukaxYO8mnrWodm9R"
+				}, {
+					"name": "white",
+					"hex": "ffffff",
+					"Id": "1Wj9n7XD1JV3P5H39Xkz"
+				}]
+			}]
+		}, {
+			"name": "bottle",
+			"layer": 2,
+			"Id": "abrU3WZrBmK5TgBjpYRG",
+			"aspects": [{
+				"name": "capacity",
+				"type": "list",
+				"Id": "OYKHVTwSFVIzyq2OiwBM",
+				"opts": [{
+					"name": "100ml",
+					"Id": "R94qkfW6pddVYIxZkGZU"
+				}, {
+					"name": "200ml",
+					"Id": "CtZfR1jV5hTlq2cQawbT"
+				}, {
+					"name": "500ml",
+					"Id": "CJDQx69S0Mjz0dipyJst"
+				}, {
+					"name": "750ml",
+					"Id": "FfU9PKPymdtqVb6np346"
+				}, {
+					"name": "1000ml",
+					"Id": "4W9sm1ZeFDxgPW74Oo6E"
+				}]
+			}, {
+				"name": "colour",
+				"type": "color",
+				"Id": "ahz43yxBBOY8pjfu8mtL",
+				"opts": [{
+					"name": "brown",
+					"hex": "343214",
+					"Id": "ncycGlqm1uAR0B6tWXdR"
+				}, {
+					"name": "orange",
+					"hex": "856a89",
+					"Id": "aNARVReEm4MWNlQlKCpl"
+				}, {
+					"name": "white",
+					"hex": "ffffff",
+					"Id": "4ldPyvJagESc69Qn9xoi"
+				}, {
+					"name": "blue",
+					"hex": "0000ff",
+					"Id": "zs80aPJhRMU0XAspxueH"
+				}]
+			}, {
+				"name": "taste",
+				"type": "icon",
+				"Id": "QDXRnMLeivUwxfGYVMsy",
+				"opts": [{
+					"name": "blueberry",
+					"Id": "oVg7K0G95doZBzQaa1mL"
+				}, {
+					"name": "raspberry",
+					"Id": "pk1RD1qUVtNJR8kf7fAk"
+				}, {
+					"name": "pineapple",
+					"Id": "opuYCvQ23UlxZSkG7mlG"
+				}, {
+					"name": "banana",
+					"Id": "0kqaZEq6kpty2aPvUFlk"
+				}]
+			}]
+		}, {
+			"name": "saddle",
+			"layer": 1,
+			"Id": "gxjiYyGz6beKbYmoTPiB",
+			"aspects": [{
+				"name": "material",
+				"type": "list",
+				"Id": "4hde5vyE8ck5NCX6MOcv",
+				"opts": [{
+					"name": "chocolate",
+					"Id": "5WvKQFOBzKOwg59pOCRD"
+				}, {
+					"name": "rubber",
+					"Id": "J7CN8fEI4qJJ2p7UuD3r"
+				}]
+			}, {
+				"name": "colour",
+				"type": "color",
+				"Id": "t2wqwhi964qrinwRCdFz",
+				"opts": [{
+					"name": "black",
+					"hex": "000000",
+					"Id": "TE0QpUpgc1suZ5KGdIaf"
+				}, {
+					"name": "grey",
+					"hex": "777777",
+					"Id": "mY9cukaxYO8mnrWodm9R"
+				}, {
+					"name": "white",
+					"hex": "ffffff",
+					"Id": "1Wj9n7XD1JV3P5H39Xkz"
+				}]
+			}]
+		}],
+
+	 //    "name": "sixteen speed",
+		// "Id": "UBHEEZA1jrWGkRBWmfPu",
+		// "parts": [{
+		// 	"name": "frame",
+		// 	"layer": 3,
+		// 	"Id": "pzrR76g5w7Mzo5Am9qBD",
+		// 	"aspects": [{
+		// 		"name": "material",
+		// 		"type": "list",
+		// 		"Id": "QeDe7SGbPexKgBPC20IY",
+		// 		"opts": [{
+		// 			"name": "plastic",
+		// 			"Id": "2Nz092S3k7EoabI09TWp"
+		// 		}, {
+		// 			"name": "rubber",
+		// 			"Id": "3y7iGVJZhxT8Km7L0c22"
+		// 		}, {
+		// 			"name": "glass",
+		// 			"Id": "V3L9KEkDNVXpDlhNabYW"
+		// 		}, {
+		// 			"name": "cloth",
+		// 			"Id": "lY01UUXjLnaKFRaOyMWr"
+		// 		}]
+		// 	}, {
+		// 		"name": "colour",
+		// 		"type": "color",
+		// 		"Id": "jYKJ62C2Utc6yHwPiSfV",
+		// 		"opts": [{
+		// 			"name": "red",
+		// 			"hex": "ff0000",
+		// 			"Id": "MBARzuNDXDUs4PADN66Z"
+		// 		}, {
+		// 			"name": "green",
+		// 			"hex": "00ff00",
+		// 			"Id": "mYd4VpXYGsEqaBB5nN6Z"
+		// 		}, {
+		// 			"name": "blue",
+		// 			"hex": "0000ff",
+		// 			"Id": "TJ3T4QKsNfOnWqUwSOWf"
+		// 		}]
+		// 	}, {
+		// 		"name": "size",
+		// 		"type": "icon",
+		// 		"Id": "aXqneCEjPHR8xoLgAzt7",
+		// 		"opts": [{
+		// 			"name": "small",
+		// 			"Id": "yzi0JrKAdfO7EBkEMXGv"
+		// 		}, {
+		// 			"name": "medium",
+		// 			"Id": "T3tFxpF4kq2pa4hXcpVt"
+		// 		}, {
+		// 			"name": "large",
+		// 			"Id": "tIFykolLZre3NnkKShMK"
+		// 		}]
+		// 	}]
+		// }, {
+		// 	"name": "saddle",
+		// 	"layer": 1,
+		// 	"Id": "gxjiYyGz6beKbYmoTPiB",
+		// 	"aspects": [{
+		// 		"name": "material",
+		// 		"type": "list",
+		// 		"Id": "4hde5vyE8ck5NCX6MOcv",
+		// 		"opts": [{
+		// 			"name": "chocolate",
+		// 			"Id": "5WvKQFOBzKOwg59pOCRD"
+		// 		}, {
+		// 			"name": "rubber",
+		// 			"Id": "J7CN8fEI4qJJ2p7UuD3r"
+		// 		}]
+		// 	}, {
+		// 		"name": "colour",
+		// 		"type": "color",
+		// 		"Id": "t2wqwhi964qrinwRCdFz",
+		// 		"opts": [{
+		// 			"name": "black",
+		// 			"hex": "000000",
+		// 			"Id": "TE0QpUpgc1suZ5KGdIaf"
+		// 		}, {
+		// 			"name": "grey",
+		// 			"hex": "777777",
+		// 			"Id": "mY9cukaxYO8mnrWodm9R"
+		// 		}, {
+		// 			"name": "white",
+		// 			"hex": "ffffff",
+		// 			"Id": "1Wj9n7XD1JV3P5H39Xkz"
+		// 		}]
+		// 	}]
+		// }, {
+		// 	"name": "bottle",
+		// 	"layer": 2,
+		// 	"Id": "abrU3WZrBmK5TgBjpYRG",
+		// 	"aspects": [{
+		// 		"name": "capacity",
+		// 		"type": "list",
+		// 		"Id": "OYKHVTwSFVIzyq2OiwBM",
+		// 		"opts": [{
+		// 			"name": "100ml",
+		// 			"Id": "R94qkfW6pddVYIxZkGZU"
+		// 		}, {
+		// 			"name": "200ml",
+		// 			"Id": "CtZfR1jV5hTlq2cQawbT"
+		// 		}, {
+		// 			"name": "500ml",
+		// 			"Id": "CJDQx69S0Mjz0dipyJst"
+		// 		}, {
+		// 			"name": "750ml",
+		// 			"Id": "FfU9PKPymdtqVb6np346"
+		// 		}, {
+		// 			"name": "1000ml",
+		// 			"Id": "4W9sm1ZeFDxgPW74Oo6E"
+		// 		}]
+		// 	}, {
+		// 		"name": "colour",
+		// 		"type": "color",
+		// 		"Id": "ahz43yxBBOY8pjfu8mtL",
+		// 		"opts": [{
+		// 			"name": "brown",
+		// 			"hex": "343214",
+		// 			"Id": "ncycGlqm1uAR0B6tWXdR"
+		// 		}, {
+		// 			"name": "orange",
+		// 			"hex": "856a89",
+		// 			"Id": "aNARVReEm4MWNlQlKCpl"
+		// 		}, {
+		// 			"name": "white",
+		// 			"hex": "ffffff",
+		// 			"Id": "4ldPyvJagESc69Qn9xoi"
+		// 		}, {
+		// 			"name": "blue",
+		// 			"hex": "0000ff",
+		// 			"Id": "zs80aPJhRMU0XAspxueH"
+		// 		}]
+		// 	}, {
+		// 		"name": "taste",
+		// 		"type": "icon",
+		// 		"Id": "QDXRnMLeivUwxfGYVMsy",
+		// 		"opts": [{
+		// 			"name": "blueberry",
+		// 			"Id": "oVg7K0G95doZBzQaa1mL"
+		// 		}, {
+		// 			"name": "raspberry",
+		// 			"Id": "pk1RD1qUVtNJR8kf7fAk"
+		// 		}, {
+		// 			"name": "pineapple",
+		// 			"Id": "opuYCvQ23UlxZSkG7mlG"
+		// 		}, {
+		// 			"name": "banana",
+		// 			"Id": "0kqaZEq6kpty2aPvUFlk"
+		// 		}]
+		// 	}]
+		// }],
+
+	}]
 
 /***/ }
 /******/ ]);

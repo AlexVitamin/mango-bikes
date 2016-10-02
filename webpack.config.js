@@ -15,6 +15,7 @@ module.exports = {
       {test: /\.css$/, loader: "style-loader!css-loader"},
       {test: /\.less$/, loader: "style!css!less"},
       {test: /\.(jpe?g|png|gif|svg|ttf)$/i, loader: "file-loader" },
+      {test: /\.template.html$/, loader: "underscore-template-loader" }
       ]
     },
     plugins: [
