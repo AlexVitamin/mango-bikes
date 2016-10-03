@@ -65,6 +65,7 @@ body{
             padding-left: 10px;
             margin-bottom: 30px;
 
+
             &:hover{
               cursor: pointer;
             }
@@ -132,13 +133,13 @@ body{
          margin-bottom: 10px;
     		 color: black;
 		     height:100vh;
-         width: 200vw;
+         width: 110vw;
          white-space: nowrap;
          position: relative;
          // overflow-x: scroll;
          // overflow-y: hidden;
          // width: 1200px;
-         overflow-x: auto;
+         overflow: scroll;
 
 
         .openVariation{
@@ -150,7 +151,7 @@ body{
           font-size: @sizeSmall;
           cursor: pointer;
           text-align: center;
-          vertical-align: middle;
+          // vertical-align: middle;
           margin-bottom: 10px;
 
         // margin:0 auto;
@@ -177,18 +178,16 @@ body{
            }
 
           .help{
-            position: relative;
+              position: relative;
               height: 20%;
-             // line-height: 40px;
-          width: 30%;
-          background-color: #f8f8f8;
-          color: #8f8f8f;
-          
-          text-align: left;
-          vertical-align: left;
-          margin-bottom: 10px;
-          padding-left: 20px;
-          padding-top: 10px;
+              width: 60%;
+              background-color: #f8f8f8;
+              color: #8f8f8f;
+              text-align: left;
+              vertical-align: left;
+              margin-bottom: 10px;
+              padding-left: 20px;
+              padding-top: 10px;
 
           >div{
             float: left;
@@ -200,10 +199,7 @@ body{
             }
             >p{
               font-size: @sizeSmall;
-               // position: relative;
-              // overflow: hidden;
               float: left;
-              // word-wrap:break-word;
               width: inherit;
               overflow-x: hidden;
               overflow-y: scroll;
@@ -217,9 +213,9 @@ body{
           .sContainer{
             margin-right: 10px;
             background-color: #f9f9f9;
-            width: 10%;
-            max-width: 20%;
-            height: 100%;
+            width: 17%;
+            max-width: 30%;
+            height: 80%;
             
             float: left;
             text-align: center;
@@ -298,6 +294,7 @@ body{
               background-color: #f9f9f9;
             }
 
+
         >option{
             cursor: pointer;
             height: 40px;
@@ -306,16 +303,20 @@ body{
             font-size: @sizeMedium-small;
             padding-top:20px;
 
-           &:hover{
-               color: #ef501e;
-              
+             >h3{
+                // display: none;
+                     }
 
-               >span{
-                display: none;
-               }
-              } 
-        }
-       }
+               &:hover{
+                  color: #ef501e;
+                  background-image: url('../img/editIcon.png');
+                  background-repeat: no-repeat;
+                  background-size: 10%;
+                  background-position: right;
+                    
+                } 
+            }
+         }
       }
  
     }
@@ -327,63 +328,61 @@ body{
     //  border-color: #f2f2f2;
     margin-right: 10px;
     background-color: #f9f9f9;
-    width: 25%;
-    height: 100%;
+    width: 50%;
+    height: 80%;
     float: left;
     text-align: center;
 
 
 
-     #types,#types1,#types2, #addNewType{
-            display: none;
+     .types{
+
+        display: none;
+
+         >div{
+             padding-left: 10px;
+            height: 100%;
+            width: 30%;
+            float: left;
+
+
+             >select{
+               border: 0;
+               border-radius: 0;
+               background-color: #f4f3f4;
+               max-height: 90%;
+               width: 100%;
+               text-align: center;
+               // display: none;
+               // -webkit-appearance: none;
+               //   -moz-appearance: none;
+               //   appearance: none;
+                 outline:none;
+                 overflow-y: scroll;
+                 position: inherit;
+
+            >option{
+                cursor: pointer;
+                height: 40px;
+                margin: 0;
+                line-height: 50px;
+                font-size: @sizeMedium-small;
+                padding-top:20px;
+
+
+               &:hover{
+                   color: #ef501e;
+                  } 
+               }
+           }
+          
+              >hr{
+                width: 85%;
+              }
+         
+         }
+
         
-    >select{
-        border: 0;
-           border-radius: 0;
-           background-color: #f4f3f4;
-           max-height: 90%;
-           width: 100%;
-           text-align: center;
-           display: none;
-           // -webkit-appearance: none;
-           //   -moz-appearance: none;
-           //   appearance: none;
-             outline:none;
-             overflow-y: scroll;
-             position: inherit;
-
-        >option{
-            cursor: pointer;
-            height: 40px;
-            margin: 0;
-            line-height: 50px;
-            font-size: @sizeMedium-small;
-            padding-top:20px;
-
-
-           &:hover{
-               color: #ef501e;
-              } 
-        }
-       }
-      
-     >div{
-         padding-left: 10px;
-        height: 100%;
-        width: 30%;
-        float: left;
-
-
-        >hr{
-      width: 85%;
-    }
-
-
-     
-        }
-
-    
-
     }
 
     #handlebar-types{
@@ -428,7 +427,7 @@ body{
 
    #VariationsContainer{
       float: left;
-      width: 35%;
+      // width: 35%;
       max-width: 75%;
       position: inherit;
 
@@ -516,20 +515,50 @@ body{
                   }
 
                         }
+                        
 
-          .imageUploadBTN{
+          .uploadBTN,{
             background-color: #f04e2b;
-            width:60%;
-            height: 26px;
+            // width:60%;
+            height: 46px;
             color: white;
-            margin: 0 auto;
-            padding-top: 10px;
-            margin-bottom: 5px;
-
-            &:hover{
+            // margin: 0 auto;
+            padding: 10px;
+            // margin-top: 5px;
+            // margin-bottom: 5px;
+            position: relative;
+             &:hover{
               cursor: pointer;
             }
+            
           }
+
+          input[type="file"] {
+                width:60%;
+                opacity: 0;
+                margin-top: 10px;
+                position: relative;
+                // z-index: -1;
+                text-align: center;
+                margin-left: -40px;
+                margin-right: -40px;
+
+                &:hover{
+              cursor: pointer;
+            }
+            }
+
+          // input.upload {
+          //       position: absolute;
+          //       top: 0;
+          //       right: 0;
+          //       margin: 0;
+          //       padding: 0;
+          //       font-size: 20px;
+          //       cursor: pointer;
+          //       opacity: 0;
+          //       filter: alpha(opacity=0);
+          //   }
 
           .imageReplaceBTN{
             background-color: #aed53e;

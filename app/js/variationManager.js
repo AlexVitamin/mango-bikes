@@ -34,6 +34,7 @@ var model = (function(){
 
   };
 
+
   return settings;
 }());
 
@@ -95,32 +96,29 @@ var variationApp = {
       });
 
        $('#singleParts').bind('change', function () { 
-         if( $('#singleParts').val() == "frame") {
-            $('#types').show();
+        // console.log('VAL: ', $(this).find(':selected').attr('data-id'));
+         
+         $('.types[data-id="'+$(this).find(':selected').attr('data-id')+'"]').show().siblings('.types').hide(); 
+
+         
+         /*if( $('#singleParts').val() == "frame") {
+            $('.types[data-id="'+$(this).find(':selected').attr('data-id')+'"]').show();
           }
-          else{
-            $('#types').hide();
-          }
+          else {
+            $('.types[data-id="'+$(this).find(':selected').attr('data-id')+'"]').hide();
+          }*/
+
+
+
       });
 
-        $('#singleParts').bind('change', function () { 
-         if( $('#singleParts').val() == "saddle") {
-            $('#types1').show();
+      
+     $('.partOption').click(function(e) {
+          var mousePosInElement = e.pageX - $(this).position().left;
+          if (mousePosInElement > $(this).width()) {
+             console.log("edit clicked")
           }
-          else{
-            $('#types1').hide();
-          }
-      });
-
-         $('#singleParts').bind('change', function () { 
-         if( $('#singleParts').val() == "bottle") {
-            $('#types2').show();
-          }
-          else{
-            $('#types2').hide();
-          }
-      });
-
+        });
 
 
   },
@@ -166,80 +164,61 @@ var variationApp = {
 
       var speed = state[i];
       var part = state[i].parts;
-      var aspects = state[i].parts[i].aspects;
-      var opts = state[i].parts[i].aspects[i].opts;
-      console.log(speed.name);
 
        // Speed List 
-       for (var i in speed) {
          $('#speed').append(templates.getSpeedItem({
-               name:speed.name,
-           }));
-        }
+              name:speed.name,
+          }));
+
+
 
       // Parts List
-
       var arrayLength = part.length;
-      for (var i in part) {
+
+      for (var j in part) {
          $('#singleParts').append(templates.getPartsItem({
-               partsName:part[i].name,
+               partsName:part[j].name,
+               partsId:part[j].Id,
            }));
-         // console.log(part[i]);
-        }
-      // console.log(arrayLength);
-      
-      // Aspects List
-      for (var i in aspects) {
 
-         $('#types').append(templates.getAspects({
-               partsName:part[i].name,
-               aspectsName:aspects[i].name,
-           }));
-         // $('#types1').append(templates.getAspects({
-         //       partsName:part[i].name,
-         //       aspectsName:aspects[i].name,
-         //   }));
-         //  $('#types2').append(templates.getAspects({
-         //       partsName:part[i].name,
-         //       aspectsName:aspects[i].name,
-         //   }));
-        }
-
-      // Opts List 
-      for (var i in opts) {
-           $('#optsList').append(templates.getOpts({
-            optsName:opts[i].name,
+         $('#typesSection').append(templates.getTypes({
+            partsId:part[j].Id,
          }));
+
+          var aspects = state[i].parts[j].aspects;
+           console.log('Parts: ', part[i].name);
+
+          for (var k in aspects) {
+
+            console.log('ASPECTS: ', aspects[k]);
+           
+             $('.types[data-id="'+part[j].Id+'"]').append(templates.getAspects({
+                  aspectsName:aspects[k].name,
+                  aspectsId:aspects[k].Id,
+                  partsName:part[j].name,
+                  partsId:part[j].Id,
+              }));
+
+
+             var opts = state[i].parts[j].aspects[k].opts;
+             
+
+              for (var l in opts) {
+                    $('.optsList[data-id="'+aspects[k].Id+'"]').append(templates.getOpts({
+                      optsName:opts[l].name,
+                      aspectsId:aspects[k].Id,
+                    }));
+
+                  }
+
+
+                }
+
+            }
+
+        }
       }
-
-    }
-
-    // $.getJSON(url, function (data) {
-    // $.each(data.response.venue.parts, function (index, value) {
-    //     $.each(this.parts, function () {
-    //         console.log(this.name);
-    //     });
-    // });
-    // });
-
-    // for(var i = 0, len = state.length; i < len; i++){
-    //   $('#speed').append(speedItemTemplate({
-    //     Id:state[i].Id,
-    //     name:state[i].name,
-    //   }));
-    // };
-
-
-    // _.forEach(state,function(obj){
-
-        
-
-    // });
-
-
-
-  }
-};
+   };
 
 variationApp.start();
 

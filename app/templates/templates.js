@@ -6,16 +6,27 @@ module.exports = {
 		return '<option color="#ff" data-id="'+obj.Id+'" class="select-speed" value="'+obj.name+'">'+obj.name+'</option>';
 	},
 	getPartsItem:function(obj){
-		return '<option class="select-part" value="'+obj.partsName+'">'+obj.partsName+'</option>';
+		return '<option class="partOption" data-id="'+obj.partsId+'" value="'+obj.partsName+'"><h3>'+obj.partsName+'</h3></option>';
+	},
+
+	getTypes:function(obj){
+      return '<div class="types" data-id="'+obj.partsId+'"></div>'
 	},
 
 	getAspects:function(obj){
-		return '<div class="types-list"><h1>'+obj.aspectsName+'</h1> <hr> <select class="select" size="6" id="optsList"></select></div>';
+		return '<div class="types-list" data-id="'+obj.partsId+'" data-name="'+obj.partsName+'" ><h1>'+obj.aspectsName+'</h1><hr><select size="6" class="optsList" data-id="'+obj.aspectsId+'"></select></div>';
 	},
 
 	getOpts:function(obj){
-       return '<option data-id="'+obj.optsName+'" class="select-part" value="'+obj.optsName+'">'+obj.optsName+'</option>'
+       return '<option data-id="'+obj.aspectsId+'" class="select-part" value="'+obj.optsName+'">'+obj.optsName+'</option>';
 	},
+
+
+
+
+
+
+
 
 	// Bike Builder 
 

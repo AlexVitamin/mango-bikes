@@ -153,39 +153,6 @@ module.exports = [{
 				"Id": "0kqaZEq6kpty2aPvUFlk"
 			}]
 		}]
-	}, {
-		"name": "saddle",
-		"layer": 1,
-		"Id": "gxjiYyGz6beKbYmoTPiB",
-		"aspects": [{
-			"name": "material",
-			"type": "list",
-			"Id": "4hde5vyE8ck5NCX6MOcv",
-			"opts": [{
-				"name": "chocolate",
-				"Id": "5WvKQFOBzKOwg59pOCRD"
-			}, {
-				"name": "rubber",
-				"Id": "J7CN8fEI4qJJ2p7UuD3r"
-			}]
-		}, {
-			"name": "colour",
-			"type": "color",
-			"Id": "t2wqwhi964qrinwRCdFz",
-			"opts": [{
-				"name": "black",
-				"hex": "000000",
-				"Id": "TE0QpUpgc1suZ5KGdIaf"
-			}, {
-				"name": "grey",
-				"hex": "777777",
-				"Id": "mY9cukaxYO8mnrWodm9R"
-			}, {
-				"name": "white",
-				"hex": "ffffff",
-				"Id": "1Wj9n7XD1JV3P5H39Xkz"
-			}]
-		}]
 	}],
 
  //    "name": "sixteen speed",

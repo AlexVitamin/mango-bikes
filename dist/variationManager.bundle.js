@@ -141,26 +141,22 @@
 	    });
 
 	    $('#singleParts').bind('change', function () {
-	      if ($('#singleParts').val() == "frame") {
-	        $('#types').show();
-	      } else {
-	        $('#types').hide();
-	      }
+	      // console.log('VAL: ', $(this).find(':selected').attr('data-id'));
+
+	      $('.types[data-id="' + $(this).find(':selected').attr('data-id') + '"]').show().siblings('.types').hide();
+
+	      /*if( $('#singleParts').val() == "frame") {
+	         $('.types[data-id="'+$(this).find(':selected').attr('data-id')+'"]').show();
+	       }
+	       else {
+	         $('.types[data-id="'+$(this).find(':selected').attr('data-id')+'"]').hide();
+	       }*/
 	    });
 
-	    $('#singleParts').bind('change', function () {
-	      if ($('#singleParts').val() == "saddle") {
-	        $('#types1').show();
-	      } else {
-	        $('#types1').hide();
-	      }
-	    });
-
-	    $('#singleParts').bind('change', function () {
-	      if ($('#singleParts').val() == "bottle") {
-	        $('#types2').show();
-	      } else {
-	        $('#types2').hide();
+	    $('.partOption').click(function (e) {
+	      var mousePosInElement = e.pageX - $(this).position().left;
+	      if (mousePosInElement > $(this).width()) {
+	        console.log("edit clicked");
 	      }
 	    });
 	  },
@@ -206,74 +202,50 @@
 
 	      var speed = state[i];
 	      var part = state[i].parts;
-	      var aspects = state[i].parts[i].aspects;
-	      var opts = state[i].parts[i].aspects[i].opts;
-	      console.log(speed.name);
 
 	      // Speed List 
-	      for (var i in speed) {
-	        $('#speed').append(templates.getSpeedItem({
-	          name: speed.name
-	        }));
-	      }
+	      $('#speed').append(templates.getSpeedItem({
+	        name: speed.name
+	      }));
 
 	      // Parts List
-
 	      var arrayLength = part.length;
-	      for (var i in part) {
+
+	      for (var j in part) {
 	        $('#singleParts').append(templates.getPartsItem({
-	          partsName: part[i].name
+	          partsName: part[j].name,
+	          partsId: part[j].Id
 	        }));
-	        // console.log(part[i]);
-	      }
-	      // console.log(arrayLength);
 
-	      // Aspects List
-	      for (var i in aspects) {
-
-	        $('#types').append(templates.getAspects({
-	          partsName: part[i].name,
-	          aspectsName: aspects[i].name
+	        $('#typesSection').append(templates.getTypes({
+	          partsId: part[j].Id
 	        }));
-	        // $('#types1').append(templates.getAspects({
-	        //       partsName:part[i].name,
-	        //       aspectsName:aspects[i].name,
-	        //   }));
-	        //  $('#types2').append(templates.getAspects({
-	        //       partsName:part[i].name,
-	        //       aspectsName:aspects[i].name,
-	        //   }));
-	      }
 
-	      // Opts List 
-	      for (var i in opts) {
-	        $('#optsList').append(templates.getOpts({
-	          optsName: opts[i].name
-	        }));
+	        var aspects = state[i].parts[j].aspects;
+	        console.log('Parts: ', part[i].name);
+
+	        for (var k in aspects) {
+
+	          console.log('ASPECTS: ', aspects[k]);
+
+	          $('.types[data-id="' + part[j].Id + '"]').append(templates.getAspects({
+	            aspectsName: aspects[k].name,
+	            aspectsId: aspects[k].Id,
+	            partsName: part[j].name,
+	            partsId: part[j].Id
+	          }));
+
+	          var opts = state[i].parts[j].aspects[k].opts;
+
+	          for (var l in opts) {
+	            $('.optsList[data-id="' + aspects[k].Id + '"]').append(templates.getOpts({
+	              optsName: opts[l].name,
+	              aspectsId: aspects[k].Id
+	            }));
+	          }
+	        }
 	      }
 	    }
-
-	    // $.getJSON(url, function (data) {
-	    // $.each(data.response.venue.parts, function (index, value) {
-	    //     $.each(this.parts, function () {
-	    //         console.log(this.name);
-	    //     });
-	    // });
-	    // });
-
-	    // for(var i = 0, len = state.length; i < len; i++){
-	    //   $('#speed').append(speedItemTemplate({
-	    //     Id:state[i].Id,
-	    //     name:state[i].name,
-	    //   }));
-	    // };
-
-
-	    // _.forEach(state,function(obj){
-
-
-	    // });
-
 	  }
 	};
 
@@ -10785,15 +10757,19 @@
 			return '<option color="#ff" data-id="' + obj.Id + '" class="select-speed" value="' + obj.name + '">' + obj.name + '</option>';
 		},
 		getPartsItem: function (obj) {
-			return '<option class="select-part" value="' + obj.partsName + '">' + obj.partsName + '</option>';
+			return '<option class="partOption" data-id="' + obj.partsId + '" value="' + obj.partsName + '"><h3>' + obj.partsName + '</h3></option>';
+		},
+
+		getTypes: function (obj) {
+			return '<div class="types" data-id="' + obj.partsId + '"></div>';
 		},
 
 		getAspects: function (obj) {
-			return '<div class="types-list"><h1>' + obj.aspectsName + '</h1> <hr> <select class="select" size="6" id="optsList"></select></div>';
+			return '<div class="types-list" data-id="' + obj.partsId + '" data-name="' + obj.partsName + '" ><h1>' + obj.aspectsName + '</h1><hr><select size="6" class="optsList" data-id="' + obj.aspectsId + '"></select></div>';
 		},
 
 		getOpts: function (obj) {
-			return '<option data-id="' + obj.optsName + '" class="select-part" value="' + obj.optsName + '">' + obj.optsName + '</option>';
+			return '<option data-id="' + obj.aspectsId + '" class="select-part" value="' + obj.optsName + '">' + obj.optsName + '</option>';
 		},
 
 		// Bike Builder 
@@ -10979,39 +10955,6 @@
 				}, {
 					"name": "banana",
 					"Id": "0kqaZEq6kpty2aPvUFlk"
-				}]
-			}]
-		}, {
-			"name": "saddle",
-			"layer": 1,
-			"Id": "gxjiYyGz6beKbYmoTPiB",
-			"aspects": [{
-				"name": "material",
-				"type": "list",
-				"Id": "4hde5vyE8ck5NCX6MOcv",
-				"opts": [{
-					"name": "chocolate",
-					"Id": "5WvKQFOBzKOwg59pOCRD"
-				}, {
-					"name": "rubber",
-					"Id": "J7CN8fEI4qJJ2p7UuD3r"
-				}]
-			}, {
-				"name": "colour",
-				"type": "color",
-				"Id": "t2wqwhi964qrinwRCdFz",
-				"opts": [{
-					"name": "black",
-					"hex": "000000",
-					"Id": "TE0QpUpgc1suZ5KGdIaf"
-				}, {
-					"name": "grey",
-					"hex": "777777",
-					"Id": "mY9cukaxYO8mnrWodm9R"
-				}, {
-					"name": "white",
-					"hex": "ffffff",
-					"Id": "1Wj9n7XD1JV3P5H39Xkz"
 				}]
 			}]
 		}],
@@ -11206,7 +11149,7 @@
 
 
 	// module
-	exports.push([module.id, "/* Custom helpers */\n/* Snake effects */\n* {\n  font-family: 'Arial';\n  font-weight: 100;\n}\nbody {\n  background-color: #f2f2f2;\n}\n#popup {\n  height: 40px;\n  width: 20%;\n  background-color: #ef501e;\n  color: white;\n  cursor: pointer;\n  margin-top: 10px;\n  margin-bottom: 10px;\n  text-align: center;\n  vertical-align: middle;\n  line-height: 40px;\n  margin: 10px auto;\n}\n.modal {\n  position: absolute;\n  display: none;\n  /* Hidden by default */\n  position: fixed;\n  /* Stay in place */\n  z-index: 1;\n  /* Sit on top */\n  padding-top: 100px;\n  /* Location of the box */\n  left: 0;\n  top: 0;\n  width: 100%;\n  /* Full width */\n  height: 100%;\n  /* Full height */\n  overflow: auto;\n  /* Enable scroll if needed */\n  background-color: #000000;\n  /* Fallback color */\n  background-color: rgba(0, 0, 0, 0.4);\n  /* Black w/ opacity */\n}\n/* Modal Content */\n.modal-content {\n  position: relative;\n  background-color: #fefefe;\n  margin: auto;\n  border: 1px solid #888;\n  width: 50%;\n  text-align: justify;\n}\n.modal-content > div {\n  background-color: #f4f3f4;\n}\n.modal-content > div > h4 {\n  font-size: 18px;\n  padding-left: 20px;\n}\n.modal-content .imageUploadBTN {\n  background-color: #f04e2b;\n  width: 30%;\n  height: 26px;\n  color: white;\n  margin: 25px auto;\n  padding-top: 16px;\n  padding-left: 10px;\n  margin-bottom: 30px;\n}\n.modal-content .imageUploadBTN:hover {\n  cursor: pointer;\n}\n.modal-content > img {\n  width: 20px;\n  height: 20px;\n  margin-right: 2px;\n  cursor: pointer;\n}\n.modal-content > p {\n  position: relative;\n  overflow: none;\n  color: #8f8f8f;\n  padding-left: 30px;\n  padding-right: 30px;\n}\n.modal-content > div {\n  padding: 10px;\n}\n/* The Close Button */\n.close {\n  color: #aaaaaa;\n  float: right;\n  font-size: 20px;\n  font-weight: bold;\n  padding-right: 10px;\n}\n.close:hover,\n.close:focus {\n  color: #000;\n  text-decoration: none;\n  cursor: pointer;\n}\n.saveButton {\n  height: 40px;\n  width: 20%;\n  background-color: #ef501e;\n  color: white;\n  cursor: pointer;\n  margin-top: 10px;\n  margin-bottom: 10px;\n  text-align: center;\n  vertical-align: middle;\n  line-height: 40px;\n  margin: 0 auto;\n}\n.variationManger {\n  margin-left: 60px;\n  margin-bottom: 10px;\n  color: black;\n  height: 100vh;\n  width: 200vw;\n  white-space: nowrap;\n  position: relative;\n  overflow-x: auto;\n}\n.variationManger .openVariation {\n  height: 40px;\n  line-height: 40px;\n  width: 10%;\n  background-color: #f8f8f8;\n  color: #8f8f8f;\n  font-size: 14px;\n  cursor: pointer;\n  text-align: center;\n  vertical-align: middle;\n  margin-bottom: 10px;\n}\n.variationManger .add-new {\n  cursor: pointer;\n  margin-top: 8px;\n}\n.variationManger .add-new:hover {\n  color: #f04e2b;\n}\n.variationManger h1 {\n  font-size: 24px;\n  color: #585858;\n}\n.variationManger .help {\n  position: relative;\n  height: 20%;\n  width: 30%;\n  background-color: #f8f8f8;\n  color: #8f8f8f;\n  text-align: left;\n  vertical-align: left;\n  margin-bottom: 10px;\n  padding-left: 20px;\n  padding-top: 10px;\n}\n.variationManger .help > div {\n  float: left;\n  margin-left: 20px;\n}\n.variationManger .help > div > h4 {\n  color: black;\n  margin: 0;\n  font-size: 18px;\n}\n.variationManger .help > div > p {\n  font-size: 14px;\n  float: left;\n  width: inherit;\n  overflow-x: hidden;\n  overflow-y: scroll;\n}\n.variationManger .sContainer {\n  margin-right: 10px;\n  background-color: #f9f9f9;\n  width: 10%;\n  max-width: 20%;\n  height: 100%;\n  float: left;\n  text-align: center;\n  display: inline-block;\n  *display: inline;\n}\n.variationManger .sContainer > hr {\n  width: 70%;\n}\n.variationManger .sContainer .speed-list > select {\n  display: inline-block;\n  border: 0;\n  border-radius: 0;\n  background-color: #f4f3f4;\n  width: 100%;\n  text-align: center;\n  font-size: 16px;\n  overflow: auto;\n  outline: none;\n}\n.variationManger .sContainer .speed-list > select > .odd {\n  background-color: #f9f9f9;\n}\n.variationManger .sContainer .speed-list > select > option {\n  cursor: pointer;\n  height: 40px;\n  margin: 0;\n  padding-top: 20px;\n}\n.variationManger .sContainer .speed-list > select > option > .active {\n  background-color: #404040;\n  color: #ef501e;\n}\n.variationManger .sContainer .speed-list > select > option:hover {\n  color: #ef501e;\n}\n.variationManger .sContainer .parts-list > select {\n  border: 0;\n  border-radius: 0;\n  background-color: #f4f3f4;\n  max-height: 90%;\n  width: 100%;\n  text-align: center;\n  display: none;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  outline: none;\n  overflow-y: scroll;\n  position: inherit;\n}\n.variationManger .sContainer .parts-list > select > .odd {\n  background-color: #f9f9f9;\n}\n.variationManger .sContainer .parts-list > select > option {\n  cursor: pointer;\n  height: 40px;\n  margin: 0;\n  line-height: 50px;\n  font-size: 16px;\n  padding-top: 20px;\n}\n.variationManger .sContainer .parts-list > select > option:hover {\n  color: #ef501e;\n}\n.variationManger .sContainer .parts-list > select > option:hover > span {\n  display: none;\n}\n.variationManger .lContainer {\n  margin-right: 10px;\n  background-color: #f9f9f9;\n  width: 25%;\n  height: 100%;\n  float: left;\n  text-align: center;\n}\n.variationManger .lContainer #types,\n.variationManger .lContainer #types1,\n.variationManger .lContainer #types2,\n.variationManger .lContainer #addNewType {\n  display: none;\n}\n.variationManger .lContainer #types > select,\n.variationManger .lContainer #types1 > select,\n.variationManger .lContainer #types2 > select,\n.variationManger .lContainer #addNewType > select {\n  border: 0;\n  border-radius: 0;\n  background-color: #f4f3f4;\n  max-height: 90%;\n  width: 100%;\n  text-align: center;\n  display: none;\n  outline: none;\n  overflow-y: scroll;\n  position: inherit;\n}\n.variationManger .lContainer #types > select > option,\n.variationManger .lContainer #types1 > select > option,\n.variationManger .lContainer #types2 > select > option,\n.variationManger .lContainer #addNewType > select > option {\n  cursor: pointer;\n  height: 40px;\n  margin: 0;\n  line-height: 50px;\n  font-size: 16px;\n  padding-top: 20px;\n}\n.variationManger .lContainer #types > select > option:hover,\n.variationManger .lContainer #types1 > select > option:hover,\n.variationManger .lContainer #types2 > select > option:hover,\n.variationManger .lContainer #addNewType > select > option:hover {\n  color: #ef501e;\n}\n.variationManger .lContainer #types > div,\n.variationManger .lContainer #types1 > div,\n.variationManger .lContainer #types2 > div,\n.variationManger .lContainer #addNewType > div {\n  padding-left: 10px;\n  height: 100%;\n  width: 30%;\n  float: left;\n}\n.variationManger .lContainer #types > div > hr,\n.variationManger .lContainer #types1 > div > hr,\n.variationManger .lContainer #types2 > div > hr,\n.variationManger .lContainer #addNewType > div > hr {\n  width: 85%;\n}\n.variationManger .lContainer #handlebar-types {\n  display: none;\n}\n.variationManger .lContainer #handlebar-types > div {\n  padding-left: 10px;\n  height: 100%;\n  width: 30%;\n  float: left;\n}\n.variationManger .lContainer #handlebar-types > select {\n  border: 0;\n  border-radius: 0;\n  background-color: #f4f3f4;\n  width: 100%;\n  text-align: center;\n  display: none;\n}\n.variationManger .lContainer #handlebar-types > select > option {\n  cursor: pointer;\n  height: 50px;\n  margin: 0;\n  line-height: 50px;\n  font-size: 14px;\n}\n.variationManger .lContainer #handlebar-types > select > option:hover {\n  color: #ef501e;\n}\n.variationManger #VariationsContainer {\n  float: left;\n  width: 35%;\n  max-width: 75%;\n  position: inherit;\n}\n.variationManger #VariationsContainer .column {\n  float: left;\n  width: 19.5%;\n}\n.variationManger #VariationsContainer .column > hr {\n  width: 70%;\n}\n.variationManger #VariationsContainer .column .switch {\n  position: relative;\n  display: block;\n  width: 60px;\n  height: 34px;\n  margin: 0 auto;\n  margin-bottom: 5px;\n}\n.variationManger #VariationsContainer .column .switch input {\n  display: none;\n}\n.variationManger #VariationsContainer .column .slider {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #f04e2b;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n.variationManger #VariationsContainer .column .slider:before {\n  position: absolute;\n  content: \"\";\n  height: 26px;\n  width: 26px;\n  left: 4px;\n  bottom: 4px;\n  background-color: white;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n.variationManger #VariationsContainer .column input:checked + .slider {\n  background-color: #aed53e;\n}\n.variationManger #VariationsContainer .column input:focus + .slider {\n  box-shadow: 0 0 1px #2196F3;\n}\n.variationManger #VariationsContainer .column input:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(26px);\n}\n.variationManger #VariationsContainer .column > select {\n  margin: 0 auto;\n  position: inherit;\n  border: 1px solid #111;\n  background: #f2f2f2;\n  width: 100%;\n  padding: 5px 35px 5px 5px;\n  font-size: 16px;\n  color: #585858;\n  text-transform: uppercase;\n  border: 1px solid #ccc;\n  border-radius: 0px;\n  height: 34px;\n  margin-bottom: 5px;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  float: left;\n}\n.variationManger #VariationsContainer .column > select > option {\n  text-align: center;\n  color: #585858;\n}\n.variationManger #VariationsContainer .column .imageUploadBTN {\n  background-color: #f04e2b;\n  width: 60%;\n  height: 26px;\n  color: white;\n  margin: 0 auto;\n  padding-top: 10px;\n  margin-bottom: 5px;\n}\n.variationManger #VariationsContainer .column .imageUploadBTN:hover {\n  cursor: pointer;\n}\n.variationManger #VariationsContainer .column .imageReplaceBTN {\n  background-color: #aed53e;\n  width: 60%;\n  height: 26px;\n  color: white;\n  margin: 0 auto;\n  padding-top: 10px;\n  margin-bottom: 5px;\n}\n.variationManger #VariationsContainer .column .imageReplaceBTN:hover {\n  cursor: pointer;\n}\n.variationManger #VariationsContainer .column input[type=\"text\"] {\n  border: 1px solid #111;\n  background: #f2f2f2;\n  width: 96%;\n  font-size: 16px;\n  color: #585858;\n  text-transform: uppercase;\n  border: 1px solid #ccc;\n  border-radius: 0px;\n  height: 34px;\n  text-align: center;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  float: left;\n  margin-bottom: 5px;\n}\n.variationManger .hide {\n  display: none;\n}\n.variationManger .odd {\n  background-color: #f9f9f9;\n}\n", ""]);
+	exports.push([module.id, "/* Custom helpers */\n/* Snake effects */\n* {\n  font-family: 'Arial';\n  font-weight: 100;\n}\nbody {\n  background-color: #f2f2f2;\n}\n#popup {\n  height: 40px;\n  width: 20%;\n  background-color: #ef501e;\n  color: white;\n  cursor: pointer;\n  margin-top: 10px;\n  margin-bottom: 10px;\n  text-align: center;\n  vertical-align: middle;\n  line-height: 40px;\n  margin: 10px auto;\n}\n.modal {\n  position: absolute;\n  display: none;\n  /* Hidden by default */\n  position: fixed;\n  /* Stay in place */\n  z-index: 1;\n  /* Sit on top */\n  padding-top: 100px;\n  /* Location of the box */\n  left: 0;\n  top: 0;\n  width: 100%;\n  /* Full width */\n  height: 100%;\n  /* Full height */\n  overflow: auto;\n  /* Enable scroll if needed */\n  background-color: #000000;\n  /* Fallback color */\n  background-color: rgba(0, 0, 0, 0.4);\n  /* Black w/ opacity */\n}\n/* Modal Content */\n.modal-content {\n  position: relative;\n  background-color: #fefefe;\n  margin: auto;\n  border: 1px solid #888;\n  width: 50%;\n  text-align: justify;\n}\n.modal-content > div {\n  background-color: #f4f3f4;\n}\n.modal-content > div > h4 {\n  font-size: 18px;\n  padding-left: 20px;\n}\n.modal-content .imageUploadBTN {\n  background-color: #f04e2b;\n  width: 30%;\n  height: 26px;\n  color: white;\n  margin: 25px auto;\n  padding-top: 16px;\n  padding-left: 10px;\n  margin-bottom: 30px;\n}\n.modal-content .imageUploadBTN:hover {\n  cursor: pointer;\n}\n.modal-content > img {\n  width: 20px;\n  height: 20px;\n  margin-right: 2px;\n  cursor: pointer;\n}\n.modal-content > p {\n  position: relative;\n  overflow: none;\n  color: #8f8f8f;\n  padding-left: 30px;\n  padding-right: 30px;\n}\n.modal-content > div {\n  padding: 10px;\n}\n/* The Close Button */\n.close {\n  color: #aaaaaa;\n  float: right;\n  font-size: 20px;\n  font-weight: bold;\n  padding-right: 10px;\n}\n.close:hover,\n.close:focus {\n  color: #000;\n  text-decoration: none;\n  cursor: pointer;\n}\n.saveButton {\n  height: 40px;\n  width: 20%;\n  background-color: #ef501e;\n  color: white;\n  cursor: pointer;\n  margin-top: 10px;\n  margin-bottom: 10px;\n  text-align: center;\n  vertical-align: middle;\n  line-height: 40px;\n  margin: 0 auto;\n}\n.variationManger {\n  margin-left: 60px;\n  margin-bottom: 10px;\n  color: black;\n  height: 100vh;\n  width: 110vw;\n  white-space: nowrap;\n  position: relative;\n  overflow: scroll;\n}\n.variationManger .openVariation {\n  height: 40px;\n  line-height: 40px;\n  width: 10%;\n  background-color: #f8f8f8;\n  color: #8f8f8f;\n  font-size: 14px;\n  cursor: pointer;\n  text-align: center;\n  margin-bottom: 10px;\n}\n.variationManger .add-new {\n  cursor: pointer;\n  margin-top: 8px;\n}\n.variationManger .add-new:hover {\n  color: #f04e2b;\n}\n.variationManger h1 {\n  font-size: 24px;\n  color: #585858;\n}\n.variationManger .help {\n  position: relative;\n  height: 20%;\n  width: 60%;\n  background-color: #f8f8f8;\n  color: #8f8f8f;\n  text-align: left;\n  vertical-align: left;\n  margin-bottom: 10px;\n  padding-left: 20px;\n  padding-top: 10px;\n}\n.variationManger .help > div {\n  float: left;\n  margin-left: 20px;\n}\n.variationManger .help > div > h4 {\n  color: black;\n  margin: 0;\n  font-size: 18px;\n}\n.variationManger .help > div > p {\n  font-size: 14px;\n  float: left;\n  width: inherit;\n  overflow-x: hidden;\n  overflow-y: scroll;\n}\n.variationManger .sContainer {\n  margin-right: 10px;\n  background-color: #f9f9f9;\n  width: 17%;\n  max-width: 30%;\n  height: 80%;\n  float: left;\n  text-align: center;\n  display: inline-block;\n  *display: inline;\n}\n.variationManger .sContainer > hr {\n  width: 70%;\n}\n.variationManger .sContainer .speed-list > select {\n  display: inline-block;\n  border: 0;\n  border-radius: 0;\n  background-color: #f4f3f4;\n  width: 100%;\n  text-align: center;\n  font-size: 16px;\n  overflow: auto;\n  outline: none;\n}\n.variationManger .sContainer .speed-list > select > .odd {\n  background-color: #f9f9f9;\n}\n.variationManger .sContainer .speed-list > select > option {\n  cursor: pointer;\n  height: 40px;\n  margin: 0;\n  padding-top: 20px;\n}\n.variationManger .sContainer .speed-list > select > option > .active {\n  background-color: #404040;\n  color: #ef501e;\n}\n.variationManger .sContainer .speed-list > select > option:hover {\n  color: #ef501e;\n}\n.variationManger .sContainer .parts-list > select {\n  border: 0;\n  border-radius: 0;\n  background-color: #f4f3f4;\n  max-height: 90%;\n  width: 100%;\n  text-align: center;\n  display: none;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  outline: none;\n  overflow-y: scroll;\n  position: inherit;\n}\n.variationManger .sContainer .parts-list > select > .odd {\n  background-color: #f9f9f9;\n}\n.variationManger .sContainer .parts-list > select > option {\n  cursor: pointer;\n  height: 40px;\n  margin: 0;\n  line-height: 50px;\n  font-size: 16px;\n  padding-top: 20px;\n}\n.variationManger .sContainer .parts-list > select > option:hover {\n  color: #ef501e;\n  background-image: url(" + __webpack_require__(15) + ");\n  background-repeat: no-repeat;\n  background-size: 10%;\n  background-position: right;\n}\n.variationManger .lContainer {\n  margin-right: 10px;\n  background-color: #f9f9f9;\n  width: 50%;\n  height: 80%;\n  float: left;\n  text-align: center;\n}\n.variationManger .lContainer .types {\n  display: none;\n}\n.variationManger .lContainer .types > div {\n  padding-left: 10px;\n  height: 100%;\n  width: 30%;\n  float: left;\n}\n.variationManger .lContainer .types > div > select {\n  border: 0;\n  border-radius: 0;\n  background-color: #f4f3f4;\n  max-height: 90%;\n  width: 100%;\n  text-align: center;\n  outline: none;\n  overflow-y: scroll;\n  position: inherit;\n}\n.variationManger .lContainer .types > div > select > option {\n  cursor: pointer;\n  height: 40px;\n  margin: 0;\n  line-height: 50px;\n  font-size: 16px;\n  padding-top: 20px;\n}\n.variationManger .lContainer .types > div > select > option:hover {\n  color: #ef501e;\n}\n.variationManger .lContainer .types > div > hr {\n  width: 85%;\n}\n.variationManger .lContainer #handlebar-types {\n  display: none;\n}\n.variationManger .lContainer #handlebar-types > div {\n  padding-left: 10px;\n  height: 100%;\n  width: 30%;\n  float: left;\n}\n.variationManger .lContainer #handlebar-types > select {\n  border: 0;\n  border-radius: 0;\n  background-color: #f4f3f4;\n  width: 100%;\n  text-align: center;\n  display: none;\n}\n.variationManger .lContainer #handlebar-types > select > option {\n  cursor: pointer;\n  height: 50px;\n  margin: 0;\n  line-height: 50px;\n  font-size: 14px;\n}\n.variationManger .lContainer #handlebar-types > select > option:hover {\n  color: #ef501e;\n}\n.variationManger #VariationsContainer {\n  float: left;\n  max-width: 75%;\n  position: inherit;\n}\n.variationManger #VariationsContainer .column {\n  float: left;\n  width: 19.5%;\n}\n.variationManger #VariationsContainer .column > hr {\n  width: 70%;\n}\n.variationManger #VariationsContainer .column .switch {\n  position: relative;\n  display: block;\n  width: 60px;\n  height: 34px;\n  margin: 0 auto;\n  margin-bottom: 5px;\n}\n.variationManger #VariationsContainer .column .switch input {\n  display: none;\n}\n.variationManger #VariationsContainer .column .slider {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #f04e2b;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n.variationManger #VariationsContainer .column .slider:before {\n  position: absolute;\n  content: \"\";\n  height: 26px;\n  width: 26px;\n  left: 4px;\n  bottom: 4px;\n  background-color: white;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n.variationManger #VariationsContainer .column input:checked + .slider {\n  background-color: #aed53e;\n}\n.variationManger #VariationsContainer .column input:focus + .slider {\n  box-shadow: 0 0 1px #2196F3;\n}\n.variationManger #VariationsContainer .column input:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(26px);\n}\n.variationManger #VariationsContainer .column > select {\n  margin: 0 auto;\n  position: inherit;\n  border: 1px solid #111;\n  background: #f2f2f2;\n  width: 100%;\n  padding: 5px 35px 5px 5px;\n  font-size: 16px;\n  color: #585858;\n  text-transform: uppercase;\n  border: 1px solid #ccc;\n  border-radius: 0px;\n  height: 34px;\n  margin-bottom: 5px;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  float: left;\n}\n.variationManger #VariationsContainer .column > select > option {\n  text-align: center;\n  color: #585858;\n}\n.variationManger #VariationsContainer .column .uploadBTN {\n  background-color: #f04e2b;\n  height: 46px;\n  color: white;\n  padding: 10px;\n  position: relative;\n}\n.variationManger #VariationsContainer .column .uploadBTN:hover {\n  cursor: pointer;\n}\n.variationManger #VariationsContainer .column input[type=\"file\"] {\n  width: 60%;\n  opacity: 0;\n  margin-top: 10px;\n  position: relative;\n  text-align: center;\n  margin-left: -40px;\n  margin-right: -40px;\n}\n.variationManger #VariationsContainer .column input[type=\"file\"]:hover {\n  cursor: pointer;\n}\n.variationManger #VariationsContainer .column .imageReplaceBTN {\n  background-color: #aed53e;\n  width: 60%;\n  height: 26px;\n  color: white;\n  margin: 0 auto;\n  padding-top: 10px;\n  margin-bottom: 5px;\n}\n.variationManger #VariationsContainer .column .imageReplaceBTN:hover {\n  cursor: pointer;\n}\n.variationManger #VariationsContainer .column input[type=\"text\"] {\n  border: 1px solid #111;\n  background: #f2f2f2;\n  width: 96%;\n  font-size: 16px;\n  color: #585858;\n  text-transform: uppercase;\n  border: 1px solid #ccc;\n  border-radius: 0px;\n  height: 34px;\n  text-align: center;\n  -webkit-appearance: none;\n  -moz-appearance: none;\n  appearance: none;\n  float: left;\n  margin-bottom: 5px;\n}\n.variationManger .hide {\n  display: none;\n}\n.variationManger .odd {\n  background-color: #f9f9f9;\n}\n", ""]);
 
 	// exports
 
@@ -11231,6 +11174,12 @@
 					});
 			}
 	};
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "e343df0aa8900d75446dcffe3afb60f6.png";
 
 /***/ }
 /******/ ]);
